@@ -8,6 +8,6 @@
 
         public string Nazwisko { get; set; }
 
-        public List<Guid> Id_zamowienia { get; set; }
+        public List<Zamowienie> Id_zamowienia { get; set; } = new List<Zamowienie>();
     }
 }

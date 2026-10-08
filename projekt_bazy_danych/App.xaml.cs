@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Microsoft.EntityFrameworkCore;
 
 namespace projekt_bazy_danych
 {
@@ -7,6 +8,7 @@ namespace projekt_bazy_danych
     /// </summary>
     public partial class App : Application
     {
+
     }
 
 }

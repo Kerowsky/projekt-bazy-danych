@@ -12,5 +12,9 @@ namespace projekt_bazy_danych.Entities
         public int Vin_pojazdu { get; set; }
 
         public int Koszt { get; set; }
+
+        public Klient Klient { get; set; }
+
+        public Pojazd Pojazd { get; set; }
     }
 }

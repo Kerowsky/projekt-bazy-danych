@@ -1,6 +1,6 @@
 ﻿namespace projekt_bazy_danych.Common.Enums
 {
-    enum FactoryIdentity
+    public enum FactoryIdentity
     {
         Tychy,
         BielskoBiala,
