@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using projekt_bazy_danych.Entities;
+using projekt_bazy_danych.Common.Providers;
 
 namespace projekt_bazy_danych.Common
 {
@@ -53,6 +54,8 @@ namespace projekt_bazy_danych.Common
                 .HasOne(z => z.Pojazd)
                 .WithOne()
                 .HasForeignKey<Zamowienie>(z => z.Vin_pojazdu);
+
+            modelBuilder.Entity<Klient>().HasData(DataSeedingProvider.GenerateKlient());
         }
     }
 }

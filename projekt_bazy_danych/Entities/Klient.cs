@@ -1,6 +1,6 @@
 ﻿namespace projekt_bazy_danych.Entities
 {
-    class Klient 
+    public sealed class Klient 
     {
         public Guid Id { get; set; }
 

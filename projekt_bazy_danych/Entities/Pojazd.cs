@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace projekt_bazy_danych.Entities
 {
-    class Pojazd
+    public sealed class Pojazd
     {
         [Key]
         public int Vin_pojazdu { get; set; }

@@ -2,7 +2,7 @@
 
 namespace projekt_bazy_danych.Entities
 {
-    class Zamowienie
+    public sealed class Zamowienie
     {
         [Key]
         public Guid Id_zamowienia { get; set; }

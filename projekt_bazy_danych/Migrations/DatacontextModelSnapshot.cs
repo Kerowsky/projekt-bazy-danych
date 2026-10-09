@@ -49,6 +49,308 @@ namespace projekt_bazy_danych.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Klienci");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
+                            Imie = "Jan",
+                            Nazwisko = "Kowalski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000002"),
+                            Imie = "Anna",
+                            Nazwisko = "Nowak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000003"),
+                            Imie = "Piotr",
+                            Nazwisko = "Wisniewski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000004"),
+                            Imie = "Maria",
+                            Nazwisko = "Wojcik"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000005"),
+                            Imie = "Krzysztof",
+                            Nazwisko = "Kowalczyk"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000006"),
+                            Imie = "Katarzyna",
+                            Nazwisko = "Kaminska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000007"),
+                            Imie = "Andrzej",
+                            Nazwisko = "Lewandowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000008"),
+                            Imie = "Malgorzata",
+                            Nazwisko = "Zielinska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000009"),
+                            Imie = "Tomasz",
+                            Nazwisko = "Szymanski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000010"),
+                            Imie = "Agnieszka",
+                            Nazwisko = "Wozniak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000011"),
+                            Imie = "Michal",
+                            Nazwisko = "Dabrowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000012"),
+                            Imie = "Krystyna",
+                            Nazwisko = "Kozlowska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000013"),
+                            Imie = "Pawel",
+                            Nazwisko = "Jankowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000014"),
+                            Imie = "Barbara",
+                            Nazwisko = "Mazur"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000015"),
+                            Imie = "Marcin",
+                            Nazwisko = "Kwiatkowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000016"),
+                            Imie = "Ewa",
+                            Nazwisko = "Krawczyk"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000017"),
+                            Imie = "Kamil",
+                            Nazwisko = "Kaczmarek"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000018"),
+                            Imie = "Elzbieta",
+                            Nazwisko = "Piotrowska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000019"),
+                            Imie = "Lukasz",
+                            Nazwisko = "Grabowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000020"),
+                            Imie = "Zofia",
+                            Nazwisko = "Zajac"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000021"),
+                            Imie = "Jakub",
+                            Nazwisko = "Pawlowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000022"),
+                            Imie = "Teresa",
+                            Nazwisko = "Michalska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000023"),
+                            Imie = "Mateusz",
+                            Nazwisko = "Krol"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000024"),
+                            Imie = "Magdalena",
+                            Nazwisko = "Wieczorek"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000025"),
+                            Imie = "Szymon",
+                            Nazwisko = "Jablonski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000026"),
+                            Imie = "Joanna",
+                            Nazwisko = "Wrobel"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000027"),
+                            Imie = "Dawid",
+                            Nazwisko = "Nowakowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000028"),
+                            Imie = "Jadwiga",
+                            Nazwisko = "Majewska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000029"),
+                            Imie = "Kacper",
+                            Nazwisko = "Olszewski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000030"),
+                            Imie = "Danuta",
+                            Nazwisko = "Stepien"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000031"),
+                            Imie = "Maciej",
+                            Nazwisko = "Malinowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000032"),
+                            Imie = "Halina",
+                            Nazwisko = "Jaworska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000033"),
+                            Imie = "Aleksander",
+                            Nazwisko = "Adamczyk"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000034"),
+                            Imie = "Irena",
+                            Nazwisko = "Dudek"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000035"),
+                            Imie = "Bartlomiej",
+                            Nazwisko = "Gorski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000036"),
+                            Imie = "Ewelina",
+                            Nazwisko = "Pawlak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000037"),
+                            Imie = "Sebastian",
+                            Nazwisko = "Sikora"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000038"),
+                            Imie = "Janina",
+                            Nazwisko = "Walczak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000039"),
+                            Imie = "Robert",
+                            Nazwisko = "Rutkowski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000040"),
+                            Imie = "Beata",
+                            Nazwisko = "Michalak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000041"),
+                            Imie = "Dariusz",
+                            Nazwisko = "Szewczyk"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000042"),
+                            Imie = "Aleksandra",
+                            Nazwisko = "Ostrowska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000043"),
+                            Imie = "Artur",
+                            Nazwisko = "Tomaszewski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000044"),
+                            Imie = "Marta",
+                            Nazwisko = "Pietrzak"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000045"),
+                            Imie = "Mariusz",
+                            Nazwisko = "Zalewski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000046"),
+                            Imie = "Dorota",
+                            Nazwisko = "Wlodarczyk"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000047"),
+                            Imie = "Rafal",
+                            Nazwisko = "Maciejewski"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000048"),
+                            Imie = "Lucyna",
+                            Nazwisko = "Jastrzebska"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000049"),
+                            Imie = "Karol",
+                            Nazwisko = "Dziedzic"
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000050"),
+                            Imie = "Monika",
+                            Nazwisko = "Sadowska"
+                        });
                 });
 
             modelBuilder.Entity("projekt_bazy_danych.Entities.Pojazd", b =>
