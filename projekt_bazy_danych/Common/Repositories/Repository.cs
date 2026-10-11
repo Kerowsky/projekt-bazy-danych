@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using projekt_bazy_danych.Common.Interfaces;
+using projekt_bazy_danych.Common.Repositories.Interfaces;
 
-namespace projekt_bazy_danych.Common
+namespace projekt_bazy_danych.Common.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext context;
+        protected readonly DbContext context;
 
         private readonly DbSet<T> dbSet;
 

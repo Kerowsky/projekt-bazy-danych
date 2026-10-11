@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projekt_bazy_danych"
         mc:Ignorable="d"
+        Loaded="Window_Loaded"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid
+            Grid.Column="0"
+            x:Name="gridPojazdy"
+            AutoGenerateColumns="True"/>
+        <DataGrid
+            Grid.Column="1"
+            x:Name="gridKlienci"
+            AutoGenerateColumns="True"/>
+        <DataGrid
+            Grid.Column="2"
+            x:Name="gridZamowienia"
+            AutoGenerateColumns="True"/>
+
     </Grid>
 </Window>
