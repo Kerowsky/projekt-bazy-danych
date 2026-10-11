@@ -47,7 +47,8 @@ namespace projekt_bazy_danych.Common
         {
             modelBuilder.Entity<Klient>()
                 .HasMany(k => k.Id_zamowienia)
-                .WithOne(z => z.Klient);
+                .WithOne(z => z.Klient)
+                .HasForeignKey(z => z.KlientId);
 
             modelBuilder.Entity<Zamowienie>()
                 .HasOne(z => z.Pojazd)
@@ -55,6 +56,10 @@ namespace projekt_bazy_danych.Common
                 .HasForeignKey<Zamowienie>(z => z.Vin_pojazdu);
 
             modelBuilder.Entity<Klient>().HasData(DataSeedingProvider.GenerateKlient());
+
+            modelBuilder.Entity<Pojazd>().HasData(DataSeedingProvider.GeneratePojazd());
+
+            modelBuilder.Entity<Zamowienie>().HasData(DataSeedingProvider.GenerateZamowienia());
         }
     }
 }
