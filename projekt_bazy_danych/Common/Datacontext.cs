@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using projekt_bazy_danych.Entities;
 using projekt_bazy_danych.Common.Providers;
 
 namespace projekt_bazy_danych.Common
 {
-    class Datacontext : DbContext
+    public class Datacontext : DbContext
     {
         private readonly string connectionString;
 
@@ -45,10 +44,10 @@ namespace projekt_bazy_danych.Common
   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Usunięto duplikat relacji Klient-Zamówienie, zostawiono poprawną wersję
             modelBuilder.Entity<Klient>()
                 .HasMany(k => k.Id_zamowienia)
-                .WithOne(z => z.Klient);
+                .WithOne(z => z.Klient)
+                .HasForeignKey(z => z.KlientId);
 
             modelBuilder.Entity<Zamowienie>()
                 .HasOne(z => z.Pojazd)
@@ -56,6 +55,10 @@ namespace projekt_bazy_danych.Common
                 .HasForeignKey<Zamowienie>(z => z.Vin_pojazdu);
 
             modelBuilder.Entity<Klient>().HasData(DataSeedingProvider.GenerateKlient());
+
+            modelBuilder.Entity<Pojazd>().HasData(DataSeedingProvider.GeneratePojazd());
+
+            modelBuilder.Entity<Zamowienie>().HasData(DataSeedingProvider.GenerateZamowienia());
         }
     }
 }
