@@ -16,5 +16,13 @@ namespace projekt_bazy_danych.Common.Repositories
         {
             return await klientDbSet.ToListAsync();
         }
+
+        public async Task<Klient> GetKlientById(Guid id)
+        {
+            var test1 = id;
+            var test2 = klientDbSet.First(e => e.Id == id);
+            var test = await klientDbSet.FirstOrDefaultAsync(klient => klient.Id == id);
+            return test;
+        }
     }
 }

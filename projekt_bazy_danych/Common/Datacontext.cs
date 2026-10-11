@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using projekt_bazy_danych.Entities;
 using projekt_bazy_danych.Common.Providers;
 
 namespace projekt_bazy_danych.Common
 {
-    class Datacontext : DbContext
+    public class Datacontext : DbContext
     {
         private readonly string connectionString;
 
