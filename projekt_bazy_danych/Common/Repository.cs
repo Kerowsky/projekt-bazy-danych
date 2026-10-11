@@ -3,7 +3,7 @@ using projekt_bazy_danych.Common.Interfaces;
 
 namespace projekt_bazy_danych.Common
 {
-    public sealed class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbContext context;
 

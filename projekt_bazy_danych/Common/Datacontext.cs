@@ -45,7 +45,6 @@ namespace projekt_bazy_danych.Common
   
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Usunięto duplikat relacji Klient-Zamówienie, zostawiono poprawną wersję
             modelBuilder.Entity<Klient>()
                 .HasMany(k => k.Id_zamowienia)
                 .WithOne(z => z.Klient);
