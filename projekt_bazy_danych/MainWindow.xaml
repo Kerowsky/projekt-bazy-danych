@@ -5,8 +5,261 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projekt_bazy_danych"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Language="pl-PL"
+        Title="Zamówienia" Height="520" Width="900"
+        Background="#F8F9FA"
+        FontFamily="Segoe UI" FontSize="14"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="Primary" Color="#0D6EFD"/>
+        <SolidColorBrush x:Key="Secondary" Color="#6C757D"/>
+        <SolidColorBrush x:Key="Danger" Color="#DC3545"/>
+        <SolidColorBrush x:Key="Dark" Color="#212529"/>
+        <SolidColorBrush x:Key="BorderGray" Color="#DEE2E6"/>
+        <SolidColorBrush x:Key="InputBorder" Color="#CED4DA"/>
+        <SolidColorBrush x:Key="Muted" Color="#6C757D"/>
+
+        <Style x:Key="BsButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="16,7"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.88"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.72"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="bd" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BtnPrimary" TargetType="Button" BasedOn="{StaticResource BsButton}">
+            <Setter Property="Background" Value="{StaticResource Primary}"/>
+        </Style>
+        <Style x:Key="BtnSecondary" TargetType="Button" BasedOn="{StaticResource BsButton}">
+            <Setter Property="Background" Value="{StaticResource Secondary}"/>
+        </Style>
+        <Style x:Key="BtnDanger" TargetType="Button" BasedOn="{StaticResource BsButton}">
+            <Setter Property="Background" Value="{StaticResource Danger}"/>
+        </Style>
+        <Style x:Key="BtnOutline" TargetType="Button" BasedOn="{StaticResource BsButton}">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource Secondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Secondary}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#E9ECEF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="#DEE2E6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource InputBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}"
+                                          VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="bd" Property="BorderBrush" Value="#86B7FE"/>
+                                <Setter TargetName="bd" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ComboBox">
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Padding" Value="8,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{StaticResource InputBorder}"/>
+        </Style>
+
+        <Style x:Key="BsLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderGray}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+        </Style>
+
+        <Style x:Key="BsColumnHeader" TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource Dark}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style x:Key="BsCell" TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell">
+                        <Border Background="Transparent" Padding="12,0">
+                            <ContentPresenter VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BsRow" TargetType="DataGridRow">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="{StaticResource Dark}"/>
+            <Setter Property="MinHeight" Value="40"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="#F8F9FA"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E7F1FF"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#CFE2FF"/>
+                    <Setter Property="Foreground" Value="#052C65"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource Dark}" Padding="24,14">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Zamówienia" Foreground="White" FontSize="20" FontWeight="Bold"/>
+                <TextBlock Text="zarządzanie zamówieniami i pojazdami" Foreground="#ADB5BD"
+                           FontSize="13" Margin="14,0,0,0" VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Style="{StaticResource Card}" Padding="20,16,20,8" Margin="0,0,0,16">
+                <StackPanel>
+                    <TextBlock Text="Filtry wyszukiwania" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                    <WrapPanel>
+                        <StackPanel Margin="0,0,16,12">
+                            <TextBlock Text="Nazwisko klienta" Style="{StaticResource BsLabel}"/>
+                            <TextBox x:Name="txtFilterNazwisko" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,16,12">
+                            <TextBlock Text="VIN pojazdu" Style="{StaticResource BsLabel}"/>
+                            <TextBox x:Name="txtFilterVin" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,16,12">
+                            <TextBlock Text="Fabryka" Style="{StaticResource BsLabel}"/>
+                            <ComboBox x:Name="cmbFilterFabryka" Width="180"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,21,0,12">
+                            <Button Content="Szukaj" Width="90" Height="36" Margin="0,0,8,0"
+                                    Style="{StaticResource BtnPrimary}" Click="BtnSzukaj_Click"/>
+                            <Button Content="Wyczyść" Width="90" Height="36"
+                                    Style="{StaticResource BtnOutline}" Click="BtnWyczysc_Click"/>
+                        </StackPanel>
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
+                <Button Content="+ Dodaj nowe zamówienie" Height="38" Margin="0,0,8,0"
+                        Style="{StaticResource BtnPrimary}" Click="BtnDodaj_Click"/>
+                <Button Content="Edytuj zaznaczone" Height="38" Margin="0,0,8,0"
+                        Style="{StaticResource BtnSecondary}" Click="BtnEdytuj_Click"/>
+                <Button Content="Usuń zaznaczone" Height="38"
+                        Style="{StaticResource BtnDanger}" Click="BtnUsun_Click"/>
+            </StackPanel>
+
+            <Border Grid.Row="2" Style="{StaticResource Card}" ClipToBounds="True">
+                <DataGrid x:Name="dgZamowienia"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          SelectionMode="Single"
+                          CanUserAddRows="False"
+                          AlternationCount="2"
+                          Background="White"
+                          BorderThickness="0"
+                          HeadersVisibility="Column"
+                          GridLinesVisibility="Horizontal"
+                          HorizontalGridLinesBrush="{StaticResource BorderGray}"
+                          RowHeaderWidth="0"
+                          ColumnHeaderStyle="{StaticResource BsColumnHeader}"
+                          CellStyle="{StaticResource BsCell}"
+                          RowStyle="{StaticResource BsRow}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Imię" Binding="{Binding ImieKlienta}" Width="*"/>
+                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding NazwiskoKlienta}" Width="*"/>
+                        <DataGridTextColumn Header="VIN" Binding="{Binding VinPojazdu}" Width="160"/>
+                        <DataGridTextColumn Header="Model" Binding="{Binding ModelPojazdu}" Width="*"/>
+                        <DataGridTextColumn Header="Koszt" Binding="{Binding KosztZamowienia, StringFormat=C}" Width="110"/>
+                        <DataGridTextColumn Header="Fabryka" Binding="{Binding MiejscowoscFabryki}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
