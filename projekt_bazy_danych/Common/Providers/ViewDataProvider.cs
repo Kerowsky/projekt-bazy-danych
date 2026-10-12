@@ -1,6 +1,6 @@
 ﻿using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
-using projekt_bazy_danych.Domain;
+using projekt_bazy_danych.Domain.DTOs;
 using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Providers

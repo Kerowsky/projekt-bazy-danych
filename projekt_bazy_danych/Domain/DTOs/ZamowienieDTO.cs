@@ -1,4 +1,4 @@
-﻿namespace projekt_bazy_danych.Domain
+﻿namespace projekt_bazy_danych.Domain.DTOs
 {
     public sealed class ZamowienieDTO
     {
