@@ -1,7 +1,7 @@
 ﻿<Application x:Class="projekt_bazy_danych.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:projekt_bazy_danych">
+             xmlns:local="clr-namespace:projekt_bazy_danych" >
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
