@@ -22,8 +22,8 @@ namespace projekt_bazy_danych
                     services.AddTransient<MainWindow>();
                     services.AddTransient<DodajZamowienieViewModel>();
                     services.AddTransient<DodajZamowienieWindow>();
-                    services.AddSingleton<DataProvider>();
-                    services.AddSingleton<FactoryOrderService>();
+                    services.AddTransient<DataProvider>();
+                    services.AddTransient<FactoryOrderService>();
                 })
                 .Build();
         }
