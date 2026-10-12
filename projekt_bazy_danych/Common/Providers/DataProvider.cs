@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace projekt_bazy_danych.Common.Providers
 {
-    public class ViewDataProvider : IViewDataProvider
+    public class DataProvider : IViewDataProvider
     {
         #region Fields
         private readonly Datacontext datacontext;
@@ -15,25 +15,28 @@ namespace projekt_bazy_danych.Common.Providers
         private readonly KlientRepository klientRepository;
 
         private readonly ZamowienieRepository zamowienieRepository;
+
+        private readonly PojazdRepository pojazdRepository;
         #endregion
 
         #region Properties
         #endregion
 
         #region Constructors
-        public ViewDataProvider(
+        public DataProvider(
             Datacontext datacontext)
         {
             this.datacontext = datacontext;
-            klientRepository = new KlientRepository(datacontext);
-            zamowienieRepository = new ZamowienieRepository(datacontext);
+            this.klientRepository = new KlientRepository(datacontext);
+            this.zamowienieRepository = new ZamowienieRepository(datacontext);
+            this.pojazdRepository = new PojazdRepository(datacontext);
         }
         #endregion
 
         #region Methods
         public async Task<KlientZamowieniaDTO> GetZamowienieKlienta(Guid idKlienta)
         {
-            Klient klient = await klientRepository.GetKlientById(new Guid("10000000-0000-0000-0000-000000000001"));
+            Klient klient = await klientRepository.GetKlientById(idKlienta);
             Zamowienie zamowienie = await zamowienieRepository.GetZamowienieByKlientId(klient.Id);
 
             KlientZamowieniaDTO klientZamowieniaDTO = new KlientZamowieniaDTO();
@@ -61,7 +64,7 @@ namespace projekt_bazy_danych.Common.Providers
 
         public async Task<ObservableCollection<ZamowienieDTO>> GetZamowienia()
         {
-            List<Zamowienie> zamowienia = await zamowienieRepository.GetAllRecords();
+            IEnumerable<Zamowienie> zamowienia = await zamowienieRepository.GetAllRecords();
 
             ObservableCollection<ZamowienieDTO> zamowieniaDTO = new ObservableCollection<ZamowienieDTO>();
 

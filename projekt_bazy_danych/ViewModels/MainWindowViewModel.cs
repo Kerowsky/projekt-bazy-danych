@@ -12,7 +12,7 @@ namespace projekt_bazy_danych.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-        private readonly ViewDataProvider dataProvider;
+        private readonly DataProvider dataProvider;
 
         private readonly DodajZamowienieViewModel childVM;
 
@@ -29,7 +29,7 @@ namespace projekt_bazy_danych.ViewModels
 
         public ObservableCollection<string> Fabryki { get; } = [];
 
-        public MainWindowViewModel(DodajZamowienieViewModel childVM, ViewDataProvider dataProvider)
+        public MainWindowViewModel(DodajZamowienieViewModel childVM, DataProvider dataProvider)
         {
             this.childVM = childVM;
             this.dataProvider = dataProvider;

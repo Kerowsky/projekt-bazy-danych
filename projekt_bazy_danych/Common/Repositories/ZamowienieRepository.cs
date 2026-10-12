@@ -18,12 +18,5 @@ namespace projekt_bazy_danych.Common.Repositories
 
             return zamowienie;
         }
-
-        public async Task<List<Zamowienie>> GetAllRecords()
-        {
-            List<Zamowienie> zamowienia = await zamowieniaDbSet.ToListAsync();
-
-            return zamowienia;
-        }
     }
 }
