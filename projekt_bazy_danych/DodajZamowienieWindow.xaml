@@ -1,4 +1,4 @@
-﻿<Window x:Class="projekt_bazy_danych.DodajZamowienieWindow"
+<Window x:Class="projekt_bazy_danych.DodajZamowienieWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -157,21 +157,23 @@
                 <!-- Klient -->
                 <StackPanel Grid.Row="1" Margin="0,0,0,14">
                     <TextBlock Text="Klient" Style="{StaticResource BsLabel}"/>
-                    <ComboBox x:Name="cmbKlient"
-                              DisplayMemberPath="PelneImie" SelectedValuePath="IdKlienta"/>
+                    <ComboBox ItemsSource="{Binding Klienci}"
+                              DisplayMemberPath="PelneImie"
+                              SelectedItem="{Binding WybranyKlient}"/>
                 </StackPanel>
 
                 <!-- Pojazd -->
                 <StackPanel Grid.Row="2" Margin="0,0,0,14">
                     <TextBlock Text="Pojazd" Style="{StaticResource BsLabel}"/>
-                    <ComboBox x:Name="cmbPojazd"
-                              DisplayMemberPath="NazwaModelu" SelectedValuePath="VinPojazdu"/>
+                    <ComboBox ItemsSource="{Binding Pojazdy}"
+                              DisplayMemberPath="NazwaModelu"
+                              SelectedItem="{Binding WybranyPojazd}"/>
                 </StackPanel>
 
                 <!-- Koszt -->
                 <StackPanel Grid.Row="3" Margin="0,0,0,14">
                     <TextBlock Text="Koszt (PLN)" Style="{StaticResource BsLabel}"/>
-                    <TextBox x:Name="txtKoszt"/>
+                    <TextBox Text="{Binding Koszt, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <!-- Przyciski -->
@@ -179,7 +181,7 @@
                     <Button Content="Anuluj" Width="90" Height="36" Margin="0,0,8,0"
                             Style="{StaticResource BtnOutline}" IsCancel="True"/>
                     <Button Content="Zapisz" Width="90" Height="36"
-                            Style="{StaticResource BtnPrimary}" Click="BtnZapisz_Click" IsDefault="True"/>
+                            Style="{StaticResource BtnPrimary}" Command="{Binding ZapiszCommand}" IsDefault="True"/>
                 </StackPanel>
             </Grid>
         </Border>
