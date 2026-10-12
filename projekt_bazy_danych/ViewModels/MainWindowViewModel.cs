@@ -27,9 +27,6 @@ namespace projekt_bazy_danych.ViewModels
 
         public ObservableCollection<ZamowienieDTO> Zamowienia { get; set; } = [];
 
-        [ObservableProperty]
-        private ZamowienieWidokItem? _wybraneZamowienie;
-
         public ObservableCollection<string> Fabryki { get; } = [];
 
         public MainWindowViewModel(DodajZamowienieViewModel childVM, ViewDataProvider dataProvider)
@@ -70,37 +67,13 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void Edytuj()
         {
-            if (WybraneZamowienie is null)
-            {
-                MessageBox.Show("Zaznacz zamówienie do edycji.", "Informacja",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            // TODO: otworzyć okno edycji z WybraneZamowienie
+
         }
 
         [RelayCommand]
         private void Usun()
         {
-            if (WybraneZamowienie is null)
-            {
-                MessageBox.Show("Zaznacz zamówienie do usunięcia.", "Informacja",
-                    MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
 
-            var wynik = MessageBox.Show(
-                $"Czy na pewno chcesz usunąć zamówienie klienta " +
-                $"{WybraneZamowienie.ImieKlienta} {WybraneZamowienie.NazwiskoKlienta}?",
-                "Potwierdzenie usunięcia",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
-
-            if (wynik == MessageBoxResult.Yes)
-            {
-                // TODO: usunąć z bazy danych
-                _ = ZaladujAsync();
-            }
         }
 
         // ── Prywatne metody ─────────────────────────────────────────────────────
@@ -121,17 +94,5 @@ namespace projekt_bazy_danych.ViewModels
                     "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    }
-
-    // ── Model wiersza DataGrid ───────────────────────────────────────────────────
-
-    public sealed class ZamowienieWidokItem
-    {
-        public string ImieKlienta      { get; set; } = string.Empty;
-        public string NazwiskoKlienta  { get; set; } = string.Empty;
-        public string VinPojazdu       { get; set; } = string.Empty;
-        public string ModelPojazdu     { get; set; } = string.Empty;
-        public decimal KosztZamowienia { get; set; }
-        public string MiejscowoscFabryki { get; set; } = string.Empty;
     }
 }

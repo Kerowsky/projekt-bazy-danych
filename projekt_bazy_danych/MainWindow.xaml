@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projekt_bazy_danych"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
         Language="pl-PL"
         Title="Zamówienia" Height="520" Width="900"
@@ -179,6 +180,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="{StaticResource Dark}" Padding="24,14">
@@ -256,5 +258,6 @@
                 </DataGrid>
             </Border>
         </Grid>
+        <ScottPlot:WpfPlot x:Name="WpfPlot1" Grid.Row="2"/>
     </Grid>
 </Window>

@@ -11,27 +11,9 @@ namespace projekt_bazy_danych.ViewModels
      
         public Action<bool>? ZamknijOkno { get; set; }
 
-        // ── Listy rozwijane ──────────────────────────────────────────────────────
-
-        public ObservableCollection<KlientItem> Klienci { get; } = [];
-        public ObservableCollection<PojazdItem> Pojazdy { get; } = [];
-
-        // ── Pola formularza ──────────────────────────────────────────────────────
-
-        [ObservableProperty]
-        private KlientItem? _wybranyKlient;
-
-        [ObservableProperty]
-        private PojazdItem? _wybranyPojazd;
 
         [ObservableProperty]
         private string _koszt = string.Empty;
-
-        // ── Wyniki (dostępne po zamknięciu okna) ────────────────────────────────
-
-        public Guid? WybranyKlientId => WybranyKlient?.IdKlienta;
-        public int? WybranyPojazdVin => WybranyPojazd?.VinPojazdu;
-        public decimal KosztDecimal { get; private set; }
 
         // ── Konstruktor ─────────────────────────────────────────────────────────
 
@@ -46,19 +28,6 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void Zapisz()
         {
-            if (WybranyKlient is null)
-            {
-                MessageBox.Show("Wybierz klienta.", "Błąd walidacji",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (WybranyPojazd is null)
-            {
-                MessageBox.Show("Wybierz pojazd.", "Błąd walidacji",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
 
             string tekst = Koszt.Trim().Replace('.', ',');
             if (!decimal.TryParse(tekst, NumberStyles.Number,
@@ -68,8 +37,6 @@ namespace projekt_bazy_danych.ViewModels
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            KosztDecimal = koszt;
 
             ZamknijOkno?.Invoke(true);
         }
@@ -110,19 +77,5 @@ namespace projekt_bazy_danych.ViewModels
                     "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-    }
-
-    // ── Modele pomocnicze dla ComboBoxów ────────────────────────────────────────
-
-    public sealed class KlientItem
-    {
-        public Guid IdKlienta { get; set; }
-        public string PelneImie { get; set; } = string.Empty;
-    }
-
-    public sealed class PojazdItem
-    {
-        public int VinPojazdu { get; set; }
-        public string NazwaModelu { get; set; } = string.Empty;
     }
 }
