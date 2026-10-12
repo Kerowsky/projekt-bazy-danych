@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using projekt_bazy_danych.Domain;
 using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Repositories
@@ -18,6 +17,13 @@ namespace projekt_bazy_danych.Common.Repositories
             Zamowienie zamowienie = await zamowieniaDbSet.FirstAsync(e => e.KlientId == klientId);
 
             return zamowienie;
+        }
+
+        public async Task<List<Zamowienie>> GetAllRecords()
+        {
+            List<Zamowienie> zamowienia = await zamowieniaDbSet.ToListAsync();
+
+            return zamowienia;
         }
     }
 }

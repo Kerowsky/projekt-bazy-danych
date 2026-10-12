@@ -1,7 +1,9 @@
-﻿using projekt_bazy_danych.Common.Providers.Interfaces;
+﻿using projekt_bazy_danych.Common.Enums;
+using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
 using projekt_bazy_danych.Domain.DTOs;
 using projekt_bazy_danych.Entities;
+using System.Collections.ObjectModel;
 
 namespace projekt_bazy_danych.Common.Providers
 {
@@ -9,6 +11,7 @@ namespace projekt_bazy_danych.Common.Providers
     {
         #region Fields
         private readonly Datacontext datacontext;
+
         private readonly KlientRepository klientRepository;
 
         private readonly ZamowienieRepository zamowienieRepository;
@@ -54,6 +57,26 @@ namespace projekt_bazy_danych.Common.Providers
             };
 
             return klientZamowieniaDTO;
+        }
+
+        public async Task<ObservableCollection<ZamowienieDTO>> GetZamowienia()
+        {
+            List<Zamowienie> zamowienia = await zamowienieRepository.GetAllRecords();
+
+            ObservableCollection<ZamowienieDTO> zamowieniaDTO = new ObservableCollection<ZamowienieDTO>();
+
+            foreach (Zamowienie zamowienie in zamowienia)
+            {
+                zamowieniaDTO.Add(new ZamowienieDTO()
+                {
+                    Id_zamowienia = zamowienie.Id_zamowienia,
+                    Data = zamowienie.Data,
+                    Vin_pojazdu = zamowienie.Vin_pojazdu,
+                    Koszt = zamowienie.Koszt
+                });
+            }
+
+            return zamowieniaDTO;
         }
         #endregion
     }
