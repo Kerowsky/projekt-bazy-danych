@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Common.Enums;
+using projekt_bazy_danych.Common.Providers;
+using projekt_bazy_danych.Domain.DTOs;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -10,10 +12,9 @@ namespace projekt_bazy_danych.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-        //private readonly Datacontext _context;
-        private readonly IServiceProvider _services;
+        private readonly ViewDataProvider dataProvider;
 
-        // ── Filtry ──────────────────────────────────────────────────────────────
+        private readonly DodajZamowienieViewModel childVM;
 
         [ObservableProperty]
         private string _filterNazwisko = string.Empty;
@@ -24,25 +25,17 @@ namespace projekt_bazy_danych.ViewModels
         [ObservableProperty]
         private string? _filterFabryka;
 
-        // ── Dane ────────────────────────────────────────────────────────────────
+        public ObservableCollection<ZamowienieDTO> Zamowienia { get; set; } = [];
 
-        /// <summary>Pozycje wyświetlane w DataGrid.</summary>
-        public ObservableCollection<ZamowienieWidokItem> Zamowienia { get; } = [];
-
-        /// <summary>Zaznaczony rekord w DataGrid.</summary>
         [ObservableProperty]
         private ZamowienieWidokItem? _wybraneZamowienie;
 
-        /// <summary>Lista fabryk (enum) do ComboBoxa filtrów.</summary>
         public ObservableCollection<string> Fabryki { get; } = [];
 
-        // ── Konstruktor ─────────────────────────────────────────────────────────
-
-        public MainWindowViewModel(ServiceProvider services)
+        public MainWindowViewModel(DodajZamowienieViewModel childVM, ViewDataProvider dataProvider)
         {
-           // _context = context;
-
-            _services = services;
+            this.childVM = childVM;
+            this.dataProvider = dataProvider;
 
             foreach (var name in Enum.GetNames<FactoryIdentity>())
                 Fabryki.Add(name);
@@ -65,11 +58,12 @@ namespace projekt_bazy_danych.ViewModels
         }
 
         [RelayCommand]
-        private void Dodaj()
+        private void Dodaj() 
         {
-            var okno = _services.GetRequiredService<DodajZamowienieWindow>();
-            okno.Owner = Application.Current.MainWindow;
-            if (okno.ShowDialog() == true)
+            var test = new DodajZamowienieWindow(this.childVM);
+
+            test.Owner = Application.Current.MainWindow;
+            if (test.ShowDialog() == true)
                 _ = ZaladujAsync();
         }
 
@@ -115,49 +109,11 @@ namespace projekt_bazy_danych.ViewModels
         {
             try
             {
-                //var lista = await Task.Run(() =>
-                //{
-                //    var query = _context.Zamowienia
-                //        .Join(_context.Klienci,
-                //              z => z.KlientId,
-                //              k => k.Id,
-                //              (z, k) => new { Zamowienie = z, Klient = k })
-                //        .Join(_context.Pojazdy,
-                //              zk => zk.Zamowienie.Vin_pojazdu,
-                //              p => p.Vin_pojazdu,
-                //              (zk, p) => new
-                //              {
-                //                  zk.Zamowienie,
-                //                  zk.Klient,
-                //                  Pojazd = p
-                //              })
-                //        .AsEnumerable()
-                //        .Where(r =>
-                //            (string.IsNullOrWhiteSpace(FilterNazwisko) ||
-                //             r.Klient.Nazwisko.Contains(FilterNazwisko, StringComparison.OrdinalIgnoreCase)) &&
-                //            (string.IsNullOrWhiteSpace(FilterVin) ||
-                //             r.Pojazd.Vin_pojazdu.ToString()
-                //              .Contains(FilterVin, StringComparison.OrdinalIgnoreCase)) &&
-                //            (string.IsNullOrWhiteSpace(FilterFabryka) ||
-                //             r.Pojazd.Fabryka.ToString()
-                //              .Equals(FilterFabryka, StringComparison.OrdinalIgnoreCase)))
-                //        .Select(r => new ZamowienieWidokItem
-                //        {
-                //            ImieKlienta       = r.Klient.Imie,
-                //            NazwiskoKlienta   = r.Klient.Nazwisko,
-                //            VinPojazdu        = r.Pojazd.Vin_pojazdu.ToString(),
-                //            ModelPojazdu      = r.Pojazd.Model,
-                //            KosztZamowienia   = r.Zamowienie.Koszt,
-                //            MiejscowoscFabryki = r.Pojazd.Fabryka.ToString()
-                //        })
-                //        .ToList();
-
-                //    return query;
-                //});
-
-                //Zamowienia.Clear();
-                //foreach (var item in lista)
-                //    Zamowienia.Add(item);
+                var test = await this.dataProvider.GetZamowienia();
+                foreach(var e in test)
+                {
+                    Zamowienia.Add(e);
+                }
             }
             catch (Exception ex)
             {

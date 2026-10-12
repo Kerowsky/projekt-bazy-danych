@@ -1,23 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using projekt_bazy_danych.Common;
-using projekt_bazy_danych.Entities;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 
 namespace projekt_bazy_danych.ViewModels
 {
-    /// <summary>
-    /// ViewModel dla okna "Dodaj zamówienie".
-    /// Akcja <see cref="ZamknijOkno"/> jest wstrzykiwana przez code-behind
-    /// i wywołuje Window.DialogResult = true po udanej walidacji.
-    /// </summary>
     public partial class DodajZamowienieViewModel : ObservableObject
     {
-      
-
-        // Wywoływane przez code-behind po pomyślnym zapisie, ustawia DialogResult = true
+     
         public Action<bool>? ZamknijOkno { get; set; }
 
         // ── Listy rozwijane ──────────────────────────────────────────────────────
@@ -79,8 +70,6 @@ namespace projekt_bazy_danych.ViewModels
             }
 
             KosztDecimal = koszt;
-
-            // TODO: zapis do bazy danych
 
             ZamknijOkno?.Invoke(true);
         }

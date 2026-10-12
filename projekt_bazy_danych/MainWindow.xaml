@@ -239,7 +239,7 @@
             <Border Grid.Row="2" Style="{StaticResource Card}" ClipToBounds="True">
                 <DataGrid ItemsSource="{Binding Zamowienia}"
                           SelectedItem="{Binding WybraneZamowienie}"
-                          AutoGenerateColumns="False"
+                          AutoGenerateColumns="True"
                           IsReadOnly="True"
                           SelectionMode="Single"
                           CanUserAddRows="False"
@@ -253,14 +253,6 @@
                           ColumnHeaderStyle="{StaticResource BsColumnHeader}"
                           CellStyle="{StaticResource BsCell}"
                           RowStyle="{StaticResource BsRow}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Imię" Binding="{Binding ImieKlienta}" Width="*"/>
-                        <DataGridTextColumn Header="Nazwisko" Binding="{Binding NazwiskoKlienta}" Width="*"/>
-                        <DataGridTextColumn Header="VIN" Binding="{Binding VinPojazdu}" Width="160"/>
-                        <DataGridTextColumn Header="Model" Binding="{Binding ModelPojazdu}" Width="*"/>
-                        <DataGridTextColumn Header="Koszt" Binding="{Binding KosztZamowienia, StringFormat=C}" Width="110"/>
-                        <DataGridTextColumn Header="Fabryka" Binding="{Binding MiejscowoscFabryki}" Width="*"/>
-                    </DataGrid.Columns>
                 </DataGrid>
             </Border>
         </Grid>

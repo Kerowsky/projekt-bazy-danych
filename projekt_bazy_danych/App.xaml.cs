@@ -1,8 +1,9 @@
-using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using projekt_bazy_danych.Common;
+using projekt_bazy_danych.Common.Providers;
 using projekt_bazy_danych.ViewModels;
+using System.Windows;
 
 namespace projekt_bazy_danych
 {
@@ -20,9 +21,9 @@ namespace projekt_bazy_danych
                     services.AddTransient<MainWindow>();
                     services.AddTransient<DodajZamowienieViewModel>();
                     services.AddTransient<DodajZamowienieWindow>();
+                    services.AddSingleton<ViewDataProvider>();
                 })
                 .Build();
-
         }
 
         protected override async void OnStartup(StartupEventArgs e)
