@@ -2,6 +2,7 @@
 using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
 using projekt_bazy_danych.Domain.DTOs;
+using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Entities;
 using System.Collections.ObjectModel;
 
@@ -51,11 +52,16 @@ namespace projekt_bazy_danych.Common.Providers
                 Koszt = zamowienie.Koszt
             });
 
-            klientZamowieniaDTO= new KlientZamowieniaDTO()
+            KlientDTO klientDTO = new KlientDTO()
             {
                 Id = klient.Id,
                 Imie = klient.Imie,
-                Nazwisko = klient.Nazwisko,
+                Nazwisko = klient.Nazwisko
+            };
+
+            klientZamowieniaDTO= new KlientZamowieniaDTO()
+            {
+                Klient = klientDTO,
                 Zamowienia = zamowieniaDTO
             };
 
@@ -80,6 +86,28 @@ namespace projekt_bazy_danych.Common.Providers
             }
 
             return zamowieniaDTO;
+        }
+
+        public async Task<ObservableCollection<PojazdDTO>> GetPojazdy(string factoryIdentity)
+        {
+            IEnumerable<Pojazd> pojazdy = await pojazdRepository.GetAllRecords();
+
+            ObservableCollection<PojazdDTO> pojazdyDTO = new ObservableCollection<PojazdDTO>();
+
+            foreach (Pojazd pojazd in pojazdy.Where(p => p.Fabryka == factoryIdentity.ToFactoryIdentity()))
+            {
+                pojazdyDTO.Add(new PojazdDTO()
+                {
+                    Vin_pojazdu = pojazd.Vin_pojazdu,
+                    Model = pojazd.Model,
+                    Typ_silnika = pojazd.Typ_silnika,
+                    Moc = pojazd.Moc,
+                    Pojemnosc = pojazd.Pojemnosc,
+                    Fabryka = pojazd.Fabryka
+                });
+            }
+
+            return pojazdyDTO;
         }
         #endregion
     }

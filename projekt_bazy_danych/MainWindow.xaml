@@ -14,8 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
@@ -60,7 +59,7 @@
                                   Style="{StaticResource ComboBoxExtend}"
                                   hc:InfoElement.Title="Fabryka"
                                   ItemsSource="{Binding Fabryki}"
-                                  SelectedItem="{Binding FilterFabryka}"/>
+                                  SelectedItem="{Binding SelectedFactory}"/>
 
                         <Button Content="Szukaj" Width="90" VerticalAlignment="Bottom"
                                 Style="{StaticResource ButtonPrimary}"
@@ -85,7 +84,7 @@
             </hc:UniformSpacingPanel>
 
             <DataGrid Grid.Row="2"
-                      ItemsSource="{Binding Zamowienia}"
+                      ItemsSource="{Binding Pojazdy}"
                       SelectedItem="{Binding WybraneZamowienie}"
                       AutoGenerateColumns="True"
                       IsReadOnly="True"
