@@ -75,6 +75,9 @@
                 <Button Content="+ Dodaj nowe zamówienie"
                         Style="{StaticResource ButtonPrimary}"
                         Command="{Binding DodajCommand}"/>
+                <Button Content="+ Dodaj klienta (tymczasowe do testow)"
+                        Style="{StaticResource ButtonPrimary}"
+                        Command="{Binding DodajKlientaCommand}"/>
                 <Button Content="Edytuj zaznaczone"
                         Style="{StaticResource ButtonDefault}"
                         Command="{Binding EdytujCommand}"/>

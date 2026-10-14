@@ -48,6 +48,15 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void Dodaj() 
         {
+            var test = new DodajZamowienieWindow(this.dodajZamowienieVM);
+
+            test.Owner = Application.Current.MainWindow;
+            test.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void DodajKlienta()
+        {
             var test = new DodajKlientaView(this.dodajKlientaVM);
 
             test.Owner = Application.Current.MainWindow;
