@@ -15,7 +15,9 @@ namespace projekt_bazy_danych.ViewModels
         #region Fields
         private readonly DataProvider dataProvider;
 
-        private readonly DodajZamowienieViewModel childVM;
+        private readonly DodajZamowienieViewModel dodajZamowienieVM;
+
+        private readonly DodajKlientaViewModel dodajKlientaVM;
         #endregion
 
         #region Properites
@@ -26,9 +28,13 @@ namespace projekt_bazy_danych.ViewModels
         [ObservableProperty]
         public string? _selectedFactory;
         #endregion
-        public MainWindowViewModel(DodajZamowienieViewModel childVM, DataProvider dataProvider)
+        public MainWindowViewModel(
+            DodajZamowienieViewModel dodajZamowienieVM,
+            DodajKlientaViewModel dodajKlientaVM,
+            DataProvider dataProvider)
         {
-            this.childVM = childVM;
+            this.dodajZamowienieVM = dodajZamowienieVM;
+            this.dodajKlientaVM = dodajKlientaVM;
             this.dataProvider = dataProvider;
 
             foreach (var name in Enum.GetNames<FactoryIdentity>())
@@ -42,7 +48,7 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void Dodaj() 
         {
-            var test = new DodajZamowienieWindow(this.childVM);
+            var test = new DodajKlientaView(this.dodajKlientaVM);
 
             test.Owner = Application.Current.MainWindow;
             test.ShowDialog();
@@ -54,6 +60,12 @@ namespace projekt_bazy_danych.ViewModels
             var window = new ChartWindow();
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void WyczyscTabele()
+        {
+            Pojazdy.Clear();
         }
         #endregion
 

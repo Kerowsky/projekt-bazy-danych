@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Repositories
@@ -19,15 +20,18 @@ namespace projekt_bazy_danych.Common.Repositories
             return klient;
         }
 
-        public async Task AddKlient(Klient klient)
+        public async Task<ResultWithMessage> AddKlient(Klient klient)
         {
             try
             {
                 await klientDbSet.AddAsync(klient);
+                await base.context.SaveChangesAsync();
+
+                return new ResultWithMessage(true);
             }
             catch(Exception ex)
             {
-                throw new Exception("Blad dodawania nowego klienta: " + ex.Message);
+                return new ResultWithMessage(false, "Blad dodawania nowego klienta do bazy danych");
             }
         }
     }
