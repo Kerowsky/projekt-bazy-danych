@@ -14,7 +14,7 @@ namespace projekt_bazy_danych.Common
                 return result;
             }
 
-            throw new ArgumentException($"Bład zamiany {value} na enuma");
+            throw new ArgumentException($"Bład zamiany {value} na enuma, pole FABRYKA nie może być puste");
         }
     }
 }

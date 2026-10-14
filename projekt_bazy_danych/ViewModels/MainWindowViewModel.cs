@@ -37,7 +37,7 @@ namespace projekt_bazy_danych.ViewModels
 
         #region Commands
         [RelayCommand]
-        private Task Szukaj() => ZaladujAsync();
+        private Task Szukaj() => ZaladujDaneDoTabeliAsync();
 
         [RelayCommand]
         private void Dodaj() 
@@ -57,13 +57,28 @@ namespace projekt_bazy_danych.ViewModels
         }
         #endregion
 
-        #region Methods
-        private async Task ZaladujAsync()
+        #region Events
+        /// <summary>
+        /// Event wywoływany w momencie zmiany comboboxa FABRYKA
+        /// </summary>
+        /// <param name="value"></param>
+        partial void OnSelectedFactoryChanged(string? value)
         {
+            if (!string.IsNullOrEmpty(value))
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
+        }
+        #endregion
+
+        #region Methods
+        private async Task ZaladujDaneDoTabeliAsync()
+        {
+            Pojazdy.Clear();
             try
             {
-                var test = await this.dataProvider.GetPojazdy(SelectedFactory ?? string.Empty);
-                foreach(var e in test)
+                ObservableCollection<PojazdDTO> pojazdyDTO = await this.dataProvider.GetPojazdy(SelectedFactory ?? string.Empty);
+                foreach(var e in pojazdyDTO)
                 {
                     Pojazdy.Add(e);
                 }
@@ -74,6 +89,7 @@ namespace projekt_bazy_danych.ViewModels
                     "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         #endregion
     }
 }

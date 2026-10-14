@@ -9,7 +9,8 @@
         mc:Ignorable="d"
         Language="pl-PL"
         Title="Zamówienia" Height="520" Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
 
     <Grid>
         <Grid.RowDefinitions>
