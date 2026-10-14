@@ -15,8 +15,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="24,14">
@@ -98,5 +96,6 @@
                       RowHeaderWidth="0"/>
         </Grid>
 
+      
     </Grid>
 </Window>
