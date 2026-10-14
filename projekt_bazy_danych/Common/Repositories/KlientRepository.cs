@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using projekt_bazy_danych.Common.Utils;
+using projekt_bazy_danych.Domain.DTOs;
 using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Repositories
@@ -20,8 +21,10 @@ namespace projekt_bazy_danych.Common.Repositories
             return klient;
         }
 
-        public async Task<ResultWithMessage> AddKlient(Klient klient)
+        public async Task<ResultWithMessage> AddKlient(KlientDTO klientDTO)
         {
+            Klient klient = new Klient(klientDTO);
+
             try
             {
                 await klientDbSet.AddAsync(klient);

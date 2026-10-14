@@ -56,6 +56,11 @@ namespace projekt_bazy_danych.ViewModels
             {
                 MessageBox.Show(result.Message);
             }
+            else
+            {
+                MessageBox.Show(result.Message);
+            }
+
         }
         #endregion
     }

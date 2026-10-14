@@ -56,7 +56,8 @@ namespace projekt_bazy_danych.Common.Providers
             {
                 Id = klient.Id,
                 Imie = klient.Imie,
-                Nazwisko = klient.Nazwisko
+                Nazwisko = klient.Nazwisko,
+                Pesel = klient.Pesel
             };
 
             klientZamowieniaDTO= new KlientZamowieniaDTO()

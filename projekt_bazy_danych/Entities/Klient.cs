@@ -1,4 +1,6 @@
-﻿namespace projekt_bazy_danych.Entities
+﻿using projekt_bazy_danych.Domain.DTOs;
+
+namespace projekt_bazy_danych.Entities
 {
     public sealed class Klient 
     {
@@ -21,6 +23,22 @@
             this.Imie = Imie;
             this.Nazwisko = Nazwisko;
             this.Pesel = Pesel;
+        }
+
+        public Klient(KlientDTO klientDTO)
+        {
+            if(klientDTO.Id == null)
+            {
+                this.Id = new Guid();
+            }
+            else
+            {
+                this.Id = klientDTO.Id;
+            }
+
+            this.Imie = klientDTO.Imie;
+            this.Nazwisko = klientDTO.Nazwisko;
+            this.Pesel = klientDTO.Pesel;
         }
         #endregion
     }
