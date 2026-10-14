@@ -38,6 +38,23 @@ namespace projekt_bazy_danych.ViewModels
         #region Commands
         [RelayCommand]
         private Task Szukaj() => ZaladujAsync();
+
+        [RelayCommand]
+        private void Dodaj() 
+        {
+            var test = new DodajZamowienieWindow(this.childVM);
+
+            test.Owner = Application.Current.MainWindow;
+            test.ShowDialog();
+        }
+
+        [RelayCommand]
+        private void PokazWykres()
+        {
+            var window = new ChartWindow();
+            window.Owner = Application.Current.MainWindow;
+            window.ShowDialog();
+        }
         #endregion
 
         #region Methods
