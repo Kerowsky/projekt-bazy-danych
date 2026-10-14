@@ -76,6 +76,14 @@ namespace projekt_bazy_danych.ViewModels
 
         }
 
+        [RelayCommand]
+        private void PokazWykres()
+        {
+            var window = new ChartWindow();
+            window.Owner = Application.Current.MainWindow;
+            window.ShowDialog();
+        }
+
         // ── Prywatne metody ─────────────────────────────────────────────────────
 
         private async Task ZaladujAsync()
