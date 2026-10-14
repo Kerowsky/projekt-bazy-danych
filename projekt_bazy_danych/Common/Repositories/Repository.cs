@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using projekt_bazy_danych.Common.Repositories.Interfaces;
+using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Repositories
 {
@@ -15,10 +16,9 @@ namespace projekt_bazy_danych.Common.Repositories
             this.dbSet = context.Set<T>();
         }
 
-        public async Task<IEnumerable<T?>> GetValuesAsync()
+        public async Task<IEnumerable<T?>> GetAllRecords()
         {
             return await dbSet.ToListAsync();
         }
-
     }
 }

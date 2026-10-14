@@ -2,12 +2,13 @@
 using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
 using projekt_bazy_danych.Domain.DTOs;
+using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Entities;
 using System.Collections.ObjectModel;
 
 namespace projekt_bazy_danych.Common.Providers
 {
-    public class ViewDataProvider : IViewDataProvider
+    public class DataProvider : IViewDataProvider
     {
         #region Fields
         private readonly Datacontext datacontext;
@@ -15,25 +16,28 @@ namespace projekt_bazy_danych.Common.Providers
         private readonly KlientRepository klientRepository;
 
         private readonly ZamowienieRepository zamowienieRepository;
+
+        private readonly PojazdRepository pojazdRepository;
         #endregion
 
         #region Properties
         #endregion
 
         #region Constructors
-        public ViewDataProvider(
+        public DataProvider(
             Datacontext datacontext)
         {
             this.datacontext = datacontext;
-            klientRepository = new KlientRepository(datacontext);
-            zamowienieRepository = new ZamowienieRepository(datacontext);
+            this.klientRepository = new KlientRepository(datacontext);
+            this.zamowienieRepository = new ZamowienieRepository(datacontext);
+            this.pojazdRepository = new PojazdRepository(datacontext);
         }
         #endregion
 
         #region Methods
         public async Task<KlientZamowieniaDTO> GetZamowienieKlienta(Guid idKlienta)
         {
-            Klient klient = await klientRepository.GetKlientById(new Guid("10000000-0000-0000-0000-000000000001"));
+            Klient klient = await klientRepository.GetKlientById(idKlienta);
             Zamowienie zamowienie = await zamowienieRepository.GetZamowienieByKlientId(klient.Id);
 
             KlientZamowieniaDTO klientZamowieniaDTO = new KlientZamowieniaDTO();
@@ -48,11 +52,16 @@ namespace projekt_bazy_danych.Common.Providers
                 Koszt = zamowienie.Koszt
             });
 
-            klientZamowieniaDTO= new KlientZamowieniaDTO()
+            KlientDTO klientDTO = new KlientDTO()
             {
                 Id = klient.Id,
                 Imie = klient.Imie,
-                Nazwisko = klient.Nazwisko,
+                Nazwisko = klient.Nazwisko
+            };
+
+            klientZamowieniaDTO= new KlientZamowieniaDTO()
+            {
+                Klient = klientDTO,
                 Zamowienia = zamowieniaDTO
             };
 
@@ -61,7 +70,7 @@ namespace projekt_bazy_danych.Common.Providers
 
         public async Task<ObservableCollection<ZamowienieDTO>> GetZamowienia()
         {
-            List<Zamowienie> zamowienia = await zamowienieRepository.GetAllRecords();
+            IEnumerable<Zamowienie> zamowienia = await zamowienieRepository.GetAllRecords();
 
             ObservableCollection<ZamowienieDTO> zamowieniaDTO = new ObservableCollection<ZamowienieDTO>();
 
@@ -77,6 +86,28 @@ namespace projekt_bazy_danych.Common.Providers
             }
 
             return zamowieniaDTO;
+        }
+
+        public async Task<ObservableCollection<PojazdDTO>> GetPojazdy(string factoryIdentity)
+        {
+            IEnumerable<Pojazd> pojazdy = await pojazdRepository.GetAllRecords();
+
+            ObservableCollection<PojazdDTO> pojazdyDTO = new ObservableCollection<PojazdDTO>();
+
+            foreach (Pojazd pojazd in pojazdy.Where(p => p.Fabryka == factoryIdentity.ToFactoryIdentity()))
+            {
+                pojazdyDTO.Add(new PojazdDTO()
+                {
+                    Vin_pojazdu = pojazd.Vin_pojazdu,
+                    Model = pojazd.Model,
+                    Typ_silnika = pojazd.Typ_silnika,
+                    Moc = pojazd.Moc,
+                    Pojemnosc = pojazd.Pojemnosc,
+                    Fabryka = pojazd.Fabryka
+                });
+            }
+
+            return pojazdyDTO;
         }
         #endregion
     }

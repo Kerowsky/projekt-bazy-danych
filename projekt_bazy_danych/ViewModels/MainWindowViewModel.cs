@@ -12,88 +12,43 @@ namespace projekt_bazy_danych.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
-        private readonly ViewDataProvider dataProvider;
+        #region Fields
+        private readonly DataProvider dataProvider;
 
         private readonly DodajZamowienieViewModel childVM;
+        #endregion
 
-        [ObservableProperty]
-        private string _filterNazwisko = string.Empty;
-
-        [ObservableProperty]
-        private string _filterVin = string.Empty;
-
-        [ObservableProperty]
-        private string? _filterFabryka;
-
-        public ObservableCollection<ZamowienieDTO> Zamowienia { get; set; } = [];
+        #region Properites
+        public ObservableCollection<PojazdDTO> Pojazdy { get; set; } = [];
 
         public ObservableCollection<string> Fabryki { get; } = [];
 
-        public MainWindowViewModel(DodajZamowienieViewModel childVM, ViewDataProvider dataProvider)
+        [ObservableProperty]
+        public string? _selectedFactory;
+        #endregion
+        public MainWindowViewModel(DodajZamowienieViewModel childVM, DataProvider dataProvider)
         {
             this.childVM = childVM;
             this.dataProvider = dataProvider;
 
             foreach (var name in Enum.GetNames<FactoryIdentity>())
                 Fabryki.Add(name);
-
-            _ = ZaladujAsync();
         }
 
-        // ── Komendy ─────────────────────────────────────────────────────────────
-
+        #region Commands
         [RelayCommand]
         private Task Szukaj() => ZaladujAsync();
+        #endregion
 
-        [RelayCommand]
-        private void Wyczysc()
-        {
-            FilterNazwisko = string.Empty;
-            FilterVin = string.Empty;
-            FilterFabryka = null;
-            _ = ZaladujAsync();
-        }
-
-        [RelayCommand]
-        private void Dodaj() 
-        {
-            var test = new DodajZamowienieWindow(this.childVM);
-
-            test.Owner = Application.Current.MainWindow;
-            if (test.ShowDialog() == true)
-                _ = ZaladujAsync();
-        }
-
-        [RelayCommand]
-        private void Edytuj()
-        {
-
-        }
-
-        [RelayCommand]
-        private void Usun()
-        {
-
-        }
-
-        [RelayCommand]
-        private void PokazWykres()
-        {
-            var window = new ChartWindow();
-            window.Owner = Application.Current.MainWindow;
-            window.ShowDialog();
-        }
-
-        // ── Prywatne metody ─────────────────────────────────────────────────────
-
+        #region Methods
         private async Task ZaladujAsync()
         {
             try
             {
-                var test = await this.dataProvider.GetZamowienia();
+                var test = await this.dataProvider.GetPojazdy(SelectedFactory ?? string.Empty);
                 foreach(var e in test)
                 {
-                    Zamowienia.Add(e);
+                    Pojazdy.Add(e);
                 }
             }
             catch (Exception ex)
@@ -102,5 +57,6 @@ namespace projekt_bazy_danych.ViewModels
                     "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+        #endregion
     }
 }

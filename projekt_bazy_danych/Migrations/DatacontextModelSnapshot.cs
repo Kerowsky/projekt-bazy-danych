@@ -46,6 +46,10 @@ namespace projekt_bazy_danych.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("Pesel")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.ToTable("Klienci");
@@ -55,301 +59,351 @@ namespace projekt_bazy_danych.Migrations
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000001"),
                             Imie = "Jan",
-                            Nazwisko = "Kowalski"
+                            Nazwisko = "Kowalski",
+                            Pesel = "81021439281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000002"),
                             Imie = "Anna",
-                            Nazwisko = "Nowak"
+                            Nazwisko = "Nowak",
+                            Pesel = "92110547284"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000003"),
                             Imie = "Piotr",
-                            Nazwisko = "Wisniewski"
+                            Nazwisko = "Wisniewski",
+                            Pesel = "75082194827"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000004"),
                             Imie = "Maria",
-                            Nazwisko = "Wojcik"
+                            Nazwisko = "Wojcik",
+                            Pesel = "63041928475"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000005"),
                             Imie = "Krzysztof",
-                            Nazwisko = "Kowalczyk"
+                            Nazwisko = "Kowalczyk",
+                            Pesel = "88091238471"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000006"),
                             Imie = "Katarzyna",
-                            Nazwisko = "Kaminska"
+                            Nazwisko = "Kaminska",
+                            Pesel = "95013148293"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000007"),
                             Imie = "Andrzej",
-                            Nazwisko = "Lewandowski"
+                            Nazwisko = "Lewandowski",
+                            Pesel = "54120839284"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000008"),
                             Imie = "Malgorzata",
-                            Nazwisko = "Zielinska"
+                            Nazwisko = "Zielinska",
+                            Pesel = "77062493821"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000009"),
                             Imie = "Tomasz",
-                            Nazwisko = "Szymanski"
+                            Nazwisko = "Szymanski",
+                            Pesel = "83051728374"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000010"),
                             Imie = "Agnieszka",
-                            Nazwisko = "Wozniak"
+                            Nazwisko = "Wozniak",
+                            Pesel = "91080347285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000011"),
                             Imie = "Michal",
-                            Nazwisko = "Dabrowski"
+                            Nazwisko = "Dabrowski",
+                            Pesel = "89112239482"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000012"),
                             Imie = "Krystyna",
-                            Nazwisko = "Kozlowska"
+                            Nazwisko = "Kozlowska",
+                            Pesel = "48031528374"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000013"),
                             Imie = "Pawel",
-                            Nazwisko = "Jankowski"
+                            Nazwisko = "Jankowski",
+                            Pesel = "86072948572"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000014"),
                             Imie = "Barbara",
-                            Nazwisko = "Mazur"
+                            Nazwisko = "Mazur",
+                            Pesel = "61101839281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000015"),
                             Imie = "Marcin",
-                            Nazwisko = "Kwiatkowski"
+                            Nazwisko = "Kwiatkowski",
+                            Pesel = "94021448293"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000016"),
                             Imie = "Ewa",
-                            Nazwisko = "Krawczyk"
+                            Nazwisko = "Krawczyk",
+                            Pesel = "72092538475"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000017"),
                             Imie = "Kamil",
-                            Nazwisko = "Kaczmarek"
+                            Nazwisko = "Kaczmarek",
+                            Pesel = "98120647281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000018"),
                             Imie = "Elzbieta",
-                            Nazwisko = "Piotrowska"
+                            Nazwisko = "Piotrowska",
+                            Pesel = "55041129384"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000019"),
                             Imie = "Lukasz",
-                            Nazwisko = "Grabowski"
+                            Nazwisko = "Grabowski",
+                            Pesel = "87061938472"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000020"),
                             Imie = "Zofia",
-                            Nazwisko = "Zajac"
+                            Nazwisko = "Zajac",
+                            Pesel = "42113049283"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000021"),
                             Imie = "Jakub",
-                            Nazwisko = "Pawlowski"
+                            Nazwisko = "Pawlowski",
+                            Pesel = "99032148291"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000022"),
                             Imie = "Teresa",
-                            Nazwisko = "Michalska"
+                            Nazwisko = "Michalska",
+                            Pesel = "59081439285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000023"),
                             Imie = "Mateusz",
-                            Nazwisko = "Krol"
+                            Nazwisko = "Krol",
+                            Pesel = "96102847283"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000024"),
                             Imie = "Magdalena",
-                            Nazwisko = "Wieczorek"
+                            Nazwisko = "Wieczorek",
+                            Pesel = "84011538471"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000025"),
                             Imie = "Szymon",
-                            Nazwisko = "Jablonski"
+                            Nazwisko = "Jablonski",
+                            Pesel = "93050949284"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000026"),
                             Imie = "Joanna",
-                            Nazwisko = "Wrobel"
+                            Nazwisko = "Wrobel",
+                            Pesel = "79122238475"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000027"),
                             Imie = "Dawid",
-                            Nazwisko = "Nowakowski"
+                            Nazwisko = "Nowakowski",
+                            Pesel = "97071848292"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000028"),
                             Imie = "Jadwiga",
-                            Nazwisko = "Majewska"
+                            Nazwisko = "Majewska",
+                            Pesel = "51020539281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000029"),
                             Imie = "Kacper",
-                            Nazwisko = "Olszewski"
+                            Nazwisko = "Olszewski",
+                            Pesel = "01291447283"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000030"),
                             Imie = "Danuta",
-                            Nazwisko = "Stepien"
+                            Nazwisko = "Stepien",
+                            Pesel = "58062738472"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000031"),
                             Imie = "Maciej",
-                            Nazwisko = "Malinowski"
+                            Nazwisko = "Malinowski",
+                            Pesel = "85041249285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000032"),
                             Imie = "Halina",
-                            Nazwisko = "Jaworska"
+                            Nazwisko = "Jaworska",
+                            Pesel = "49110839284"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000033"),
                             Imie = "Aleksander",
-                            Nazwisko = "Adamczyk"
+                            Nazwisko = "Adamczyk",
+                            Pesel = "90082548291"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000034"),
                             Imie = "Irena",
-                            Nazwisko = "Dudek"
+                            Nazwisko = "Dudek",
+                            Pesel = "53011938475"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000035"),
                             Imie = "Bartlomiej",
-                            Nazwisko = "Gorski"
+                            Nazwisko = "Gorski",
+                            Pesel = "92100447282"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000036"),
                             Imie = "Ewelina",
-                            Nazwisko = "Pawlak"
+                            Nazwisko = "Pawlak",
+                            Pesel = "88032839281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000037"),
                             Imie = "Sebastian",
-                            Nazwisko = "Sikora"
+                            Nazwisko = "Sikora",
+                            Pesel = "95071148294"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000038"),
                             Imie = "Janina",
-                            Nazwisko = "Walczak"
+                            Nazwisko = "Walczak",
+                            Pesel = "45092638473"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000039"),
                             Imie = "Robert",
-                            Nazwisko = "Rutkowski"
+                            Nazwisko = "Rutkowski",
+                            Pesel = "73051449285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000040"),
                             Imie = "Beata",
-                            Nazwisko = "Michalak"
+                            Nazwisko = "Michalak",
+                            Pesel = "80120239282"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000041"),
                             Imie = "Dariusz",
-                            Nazwisko = "Szewczyk"
+                            Nazwisko = "Szewczyk",
+                            Pesel = "68041748291"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000042"),
                             Imie = "Aleksandra",
-                            Nazwisko = "Ostrowska"
+                            Nazwisko = "Ostrowska",
+                            Pesel = "91022338474"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000043"),
                             Imie = "Artur",
-                            Nazwisko = "Tomaszewski"
+                            Nazwisko = "Tomaszewski",
+                            Pesel = "76110947285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000044"),
                             Imie = "Marta",
-                            Nazwisko = "Pietrzak"
+                            Nazwisko = "Pietrzak",
+                            Pesel = "82063039281"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000045"),
                             Imie = "Mariusz",
-                            Nazwisko = "Zalewski"
+                            Nazwisko = "Zalewski",
+                            Pesel = "70091548293"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000046"),
                             Imie = "Dorota",
-                            Nazwisko = "Wlodarczyk"
+                            Nazwisko = "Wlodarczyk",
+                            Pesel = "86010738472"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000047"),
                             Imie = "Rafal",
-                            Nazwisko = "Maciejewski"
+                            Nazwisko = "Maciejewski",
+                            Pesel = "94082149284"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000048"),
                             Imie = "Lucyna",
-                            Nazwisko = "Jastrzebska"
+                            Nazwisko = "Jastrzebska",
+                            Pesel = "56031239285"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000049"),
                             Imie = "Karol",
-                            Nazwisko = "Dziedzic"
+                            Nazwisko = "Dziedzic",
+                            Pesel = "97120548291"
                         },
                         new
                         {
                             Id = new Guid("10000000-0000-0000-0000-000000000050"),
                             Imie = "Monika",
-                            Nazwisko = "Sadowska"
+                            Nazwisko = "Sadowska",
+                            Pesel = "89052938473"
                         });
                 });
 

@@ -38,7 +38,14 @@ namespace projekt_bazy_danych.Common
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                try
+                {
+                    optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Błąd połączenia z bazą danych : {ex.Message}");
+                }
             }
         }
   

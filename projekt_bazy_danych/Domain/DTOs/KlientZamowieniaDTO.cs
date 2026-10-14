@@ -3,11 +3,7 @@
     public sealed class KlientZamowieniaDTO
     {
         #region Properties
-        public Guid Id { get; set; }
-
-        public string Imie { get; set; }
-
-        public string Nazwisko { get; set; }
+        public KlientDTO Klient { get; set; }
 
         public List<ZamowienieDTO> Zamowienia { get; set; }
 

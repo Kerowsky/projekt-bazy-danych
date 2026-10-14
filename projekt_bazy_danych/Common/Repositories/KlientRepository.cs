@@ -12,17 +12,23 @@ namespace projekt_bazy_danych.Common.Repositories
             klientDbSet = base.context.Set<Klient>();
         }
 
-        public async Task<IEnumerable<Klient>> GetAllKlient()
-        {
-            return await klientDbSet.ToListAsync();
-        }
-
         public async Task<Klient> GetKlientById(Guid id)
         {
-            var test1 = id;
-            var test2 = klientDbSet.First(e => e.Id == id);
-            var test = await klientDbSet.FirstOrDefaultAsync(klient => klient.Id == id);
-            return test;
+            Klient klient = await klientDbSet.FirstOrDefaultAsync(klient => klient.Id == id);
+
+            return klient;
+        }
+
+        public async Task AddKlient(Klient klient)
+        {
+            try
+            {
+                await klientDbSet.AddAsync(klient);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Blad dodawania nowego klienta: " + ex.Message);
+            }
         }
     }
 }

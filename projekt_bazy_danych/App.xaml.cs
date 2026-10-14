@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Common.Providers;
+using projekt_bazy_danych.Common.Services;
 using projekt_bazy_danych.ViewModels;
 using System.Windows;
 
@@ -21,7 +22,8 @@ namespace projekt_bazy_danych
                     services.AddTransient<MainWindow>();
                     services.AddTransient<DodajZamowienieViewModel>();
                     services.AddTransient<DodajZamowienieWindow>();
-                    services.AddSingleton<ViewDataProvider>();
+                    services.AddTransient<DataProvider>();
+                    services.AddTransient<FactoryOrderService>();
                 })
                 .Build();
         }
