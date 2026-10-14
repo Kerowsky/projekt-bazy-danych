@@ -1,12 +1,201 @@
-﻿<Window x:Class="projekt_bazy_danych.MainWindow"
+<Window x:Class="projekt_bazy_danych.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:projekt_bazy_danych"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Language="pl-PL"
+        Title="Zamówienia" Height="520" Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized">
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="24,14">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Zamówienia"
+                           Style="{StaticResource TextBlockLargeBold}"
+                           Foreground="{DynamicResource TextIconBrush}"/>
+                <TextBlock Text="zarządzanie zamówieniami i pojazdami"
+                           Style="{StaticResource TextBlockDefault}"
+                           Foreground="{DynamicResource TextIconBrush}"
+                           Opacity="0.8"
+                           Margin="14,0,0,0"
+                           VerticalAlignment="Bottom"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="24,16,24,8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Style="{StaticResource BorderRegion}" Margin="0,0,0,12">
+                <StackPanel>
+                    <TextBlock Text="Filtry wyszukiwania"
+                               Style="{StaticResource TextBlockSubTitleBold}"
+                               Margin="0,0,0,10"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,12,12"
+                                 Style="{StaticResource TextBoxExtend}"
+                                 hc:InfoElement.Title="Imię klienta"
+                                 Text="{Binding FilterImie, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,12,12"
+                                 Style="{StaticResource TextBoxExtend}"
+                                 hc:InfoElement.Title="Nazwisko klienta"
+                                 Text="{Binding FilterNazwisko, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,12,12"
+                                 Style="{StaticResource TextBoxExtend}"
+                                 hc:InfoElement.Title="VIN pojazdu"
+                                 Text="{Binding FilterVin, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Marka pojazdu"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding Marki}"
+                                  SelectedItem="{Binding SelectedMarka}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Model pojazdu"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding Modele}"
+                                  SelectedItem="{Binding SelectedModel}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="2" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Typ silnika"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding TypySilnika}"
+                                  SelectedItem="{Binding SelectedTypSilnika}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="3" Margin="0,0,0,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Fabryka"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding Fabryki}"
+                                  SelectedItem="{Binding SelectedFactory}"/>
+
+                        <Grid Grid.Row="2" Grid.Column="0" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Koszt od (zł)"
+                                     Text="{Binding FilterKosztOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Koszt do (zł)"
+                                     Text="{Binding FilterKosztDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Moc od (KM)"
+                                     Text="{Binding FilterMocOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Moc do (KM)"
+                                     Text="{Binding FilterMocDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Pojemność od (cm³)"
+                                     Text="{Binding FilterPojemnoscOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Pojemność do (cm³)"
+                                     Text="{Binding FilterPojemnoscDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <hc:DatePicker Grid.Column="0" Margin="0,0,6,0"
+                                           Style="{StaticResource DatePickerExtend}"
+                                           hc:InfoElement.Title="Data zamówienia od"
+                                           SelectedDate="{Binding FilterDataOd}"/>
+                            <hc:DatePicker Grid.Column="1" Margin="6,0,0,0"
+                                           Style="{StaticResource DatePickerExtend}"
+                                           hc:InfoElement.Title="Data zamówienia do"
+                                           SelectedDate="{Binding FilterDataDo}"/>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <hc:UniformSpacingPanel Grid.Row="1" Spacing="8" Margin="0,0,0,12">
+                <Button Content="+ Dodaj nowe zamówienie"
+                        Style="{StaticResource ButtonPrimary}"
+                        Command="{Binding DodajCommand}"/>
+                <Button Content="+ Dodaj klienta (tymczasowe do testow)"
+                        Style="{StaticResource ButtonPrimary}"
+                        Command="{Binding DodajKlientaCommand}"/>
+                <Button Content="Edytuj zaznaczone"
+                        Style="{StaticResource ButtonDefault}"
+                        Command="{Binding EdytujCommand}"/>
+                <Button Content="Usuń zaznaczone"
+                        Style="{StaticResource ButtonDanger}"
+                        Command="{Binding UsunCommand}"/>
+                <Button Content="📊 Wykres"
+                        Style="{StaticResource ButtonDefault}"
+                        Command="{Binding PokazWykresCommand}"/>
+            </hc:UniformSpacingPanel>
+
+            <DataGrid Grid.Row="2"
+                      ItemsSource="{Binding Pojazdy}"
+                      SelectedItem="{Binding WybraneZamowienie}"
+                      AutoGenerateColumns="True"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      RowHeaderWidth="0"/>
+        </Grid>
 
     </Grid>
 </Window>
