@@ -44,30 +44,127 @@
                     <TextBlock Text="Filtry wyszukiwania"
                                Style="{StaticResource TextBlockSubTitleBold}"
                                Margin="0,0,0,10"/>
-                    <hc:UniformSpacingPanel Spacing="12">
-                        <TextBox Width="180"
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBox Grid.Row="0" Grid.Column="0" Margin="0,0,12,12"
+                                 Style="{StaticResource TextBoxExtend}"
+                                 hc:InfoElement.Title="Imię klienta"
+                                 Text="{Binding FilterImie, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="0,0,12,12"
                                  Style="{StaticResource TextBoxExtend}"
                                  hc:InfoElement.Title="Nazwisko klienta"
                                  Text="{Binding FilterNazwisko, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <TextBox Width="180"
+                        <TextBox Grid.Row="0" Grid.Column="2" Margin="0,0,12,12"
                                  Style="{StaticResource TextBoxExtend}"
                                  hc:InfoElement.Title="VIN pojazdu"
                                  Text="{Binding FilterVin, UpdateSourceTrigger=PropertyChanged}"/>
 
-                        <ComboBox Width="180"
+                        <ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Marka pojazdu"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding Marki}"
+                                  SelectedItem="{Binding SelectedMarka}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Model pojazdu"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding Modele}"
+                                  SelectedItem="{Binding SelectedModel}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="2" Margin="0,0,12,12"
+                                  Style="{StaticResource ComboBoxExtend}"
+                                  hc:InfoElement.Title="Typ silnika"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
+                                  ItemsSource="{Binding TypySilnika}"
+                                  SelectedItem="{Binding SelectedTypSilnika}"/>
+
+                        <ComboBox Grid.Row="1" Grid.Column="3" Margin="0,0,0,12"
                                   Style="{StaticResource ComboBoxExtend}"
                                   hc:InfoElement.Title="Fabryka"
+                                  hc:InfoElement.Placeholder="Wszystkie"
+                                  hc:InfoElement.ShowClearButton="True"
                                   ItemsSource="{Binding Fabryki}"
                                   SelectedItem="{Binding SelectedFactory}"/>
 
-                        <Button Content="Szukaj" Width="90" VerticalAlignment="Bottom"
-                                Style="{StaticResource ButtonPrimary}"
-                                Command="{Binding SzukajCommand}"/>
-                        <Button Content="Wyczyść" Width="90" VerticalAlignment="Bottom"
-                                Style="{StaticResource ButtonDefault}"
-                                Command="{Binding WyczyscTabeleCommand}"/>
-                    </hc:UniformSpacingPanel>
+                        <Grid Grid.Row="2" Grid.Column="0" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Koszt od (zł)"
+                                     Text="{Binding FilterKosztOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Koszt do (zł)"
+                                     Text="{Binding FilterKosztDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="1" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Moc od (KM)"
+                                     Text="{Binding FilterMocOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Moc do (KM)"
+                                     Text="{Binding FilterMocDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="2" Margin="0,0,12,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Margin="0,0,6,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Pojemność od (cm³)"
+                                     Text="{Binding FilterPojemnoscOd, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBox Grid.Column="1" Margin="6,0,0,0"
+                                     Style="{StaticResource TextBoxExtend}"
+                                     hc:InfoElement.Title="Pojemność do (cm³)"
+                                     Text="{Binding FilterPojemnoscDo, UpdateSourceTrigger=PropertyChanged}"/>
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <hc:DatePicker Grid.Column="0" Margin="0,0,6,0"
+                                           Style="{StaticResource DatePickerExtend}"
+                                           hc:InfoElement.Title="Data zamówienia od"
+                                           SelectedDate="{Binding FilterDataOd}"/>
+                            <hc:DatePicker Grid.Column="1" Margin="6,0,0,0"
+                                           Style="{StaticResource DatePickerExtend}"
+                                           hc:InfoElement.Title="Data zamówienia do"
+                                           SelectedDate="{Binding FilterDataDo}"/>
+                        </Grid>
+                    </Grid>
                 </StackPanel>
             </Border>
 
@@ -100,6 +197,5 @@
                       RowHeaderWidth="0"/>
         </Grid>
 
-      
     </Grid>
 </Window>
