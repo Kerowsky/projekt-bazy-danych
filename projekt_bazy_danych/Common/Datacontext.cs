@@ -42,9 +42,9 @@ namespace projekt_bazy_danych.Common
                 {
                     optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
                 }
-                catch (Exception ex)
+                catch
                 {
-                    throw new Exception($"Błąd połączenia z bazą danych : {ex.Message}");
+                    optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 30)));
                 }
             }
         }

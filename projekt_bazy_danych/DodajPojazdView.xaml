@@ -1,0 +1,87 @@
+<Window x:Class="projekt_bazy_danych.DodajPojazdView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:projekt_bazy_danych"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        mc:Ignorable="d"
+        Language="pl-PL"
+        Title="Dodaj pojazd" SizeToContent="Height" Width="560"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="24,14">
+            <TextBlock Text="Nowy pojazd"
+                       Style="{StaticResource TextBlockLargeBold}"
+                       Foreground="{DynamicResource TextIconBrush}"/>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource BorderRegion}" Margin="24">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Dane pojazdu"
+                           Style="{StaticResource TextBlockSubTitleBold}"
+                           Margin="0,0,0,16"/>
+
+                <TextBox Grid.Row="1" Margin="0,0,0,14"
+                         Style="{StaticResource TextBoxExtend}"
+                         hc:InfoElement.Title="VIN pojazdu"
+                         Text="{Binding Vin, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Grid.Row="2" Margin="0,0,0,14"
+                         Style="{StaticResource TextBoxExtend}"
+                         hc:InfoElement.Title="Model pojazdu"
+                         Text="{Binding Model, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ComboBox Grid.Row="3" Margin="0,0,0,14"
+                          Style="{StaticResource ComboBoxExtend}"
+                          hc:InfoElement.Title="Typ silnika"
+                          ItemsSource="{Binding TypySilnika}"
+                          SelectedItem="{Binding WybranyTypSilnika}"/>
+
+                <TextBox Grid.Row="4" Margin="0,0,0,14"
+                         Style="{StaticResource TextBoxExtend}"
+                         hc:InfoElement.Title="Moc (KM)"
+                         Text="{Binding Moc, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBox Grid.Row="5" Margin="0,0,0,14"
+                         Style="{StaticResource TextBoxExtend}"
+                         hc:InfoElement.Title="Pojemność silnika (cm³)"
+                         Text="{Binding Pojemnosc, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <ComboBox Grid.Row="6" Margin="0,0,0,14"
+                          Style="{StaticResource ComboBoxExtend}"
+                          hc:InfoElement.Title="Fabryka"
+                          ItemsSource="{Binding Fabryki}"
+                          SelectedItem="{Binding WybranaFabryka}"/>
+
+                <hc:UniformSpacingPanel Grid.Row="7" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                    <Button Content="Anuluj" Width="90"
+                            Style="{StaticResource ButtonDefault}"
+                            IsCancel="True"/>
+                    <Button Content="Dodaj pojazd" Width="110"
+                            Style="{StaticResource ButtonPrimary}"
+                            Command="{Binding DodajPojazdCommand}"
+                            IsDefault="True"/>
+                </hc:UniformSpacingPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

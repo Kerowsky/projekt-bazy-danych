@@ -18,6 +18,7 @@ namespace projekt_bazy_danych.ViewModels
         private readonly DodajZamowienieViewModel dodajZamowienieVM;
 
         private readonly DodajKlientaViewModel dodajKlientaVM;
+        private readonly DodajPojazdViewModel dodajPojazdVM;
         #endregion
 
         #region Properites
@@ -31,10 +32,12 @@ namespace projekt_bazy_danych.ViewModels
         public MainWindowViewModel(
             DodajZamowienieViewModel dodajZamowienieVM,
             DodajKlientaViewModel dodajKlientaVM,
+            DodajPojazdViewModel dodajPojazdVM,
             DataProvider dataProvider)
         {
             this.dodajZamowienieVM = dodajZamowienieVM;
             this.dodajKlientaVM = dodajKlientaVM;
+            this.dodajPojazdVM = dodajPojazdVM;
             this.dataProvider = dataProvider;
 
             foreach (var name in Enum.GetNames<FactoryIdentity>())
@@ -74,6 +77,10 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void WyczyscTabele()
         {
+            var window = new DodajPojazdView(this.dodajPojazdVM);
+            window.Owner = Application.Current.MainWindow;
+            window.ShowDialog();
+
             Pojazdy.Clear();
         }
         #endregion
