@@ -1,4 +1,4 @@
-﻿using projekt_bazy_danych.Common.Enums;
+using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
 using projekt_bazy_danych.Domain.DTOs;
@@ -109,6 +109,69 @@ namespace projekt_bazy_danych.Common.Providers
             }
 
             return pojazdyDTO;
+        }
+
+        /// <summary>
+        /// Pobiera przefiltrowane zamówienia wraz ze szczegółami klienta i pojazdu.
+        /// </summary>
+        /// <param name="filtr">Obiekt kryteriów filtrowania.</param>
+        /// <returns>Kolekcja obiektów SzczegolyZamowieniaDTO.</returns>
+        public async Task<ObservableCollection<SzczegolyZamowieniaDTO>> GetZamowieniaSzczegoly(ZamowienieFiltrDTO? filtr = null)
+        {
+            List<Zamowienie> zamowienia = await zamowienieRepository.GetZamowieniaFiltered(filtr);
+
+            ObservableCollection<SzczegolyZamowieniaDTO> wynik = new ObservableCollection<SzczegolyZamowieniaDTO>();
+
+            foreach (Zamowienie z in zamowienia)
+            {
+                var (marka, model) = rozdzielMarkeIModel(z.Pojazd?.Model ?? string.Empty);
+
+                wynik.Add(new SzczegolyZamowieniaDTO
+                {
+                    Id_zamowienia = z.Id_zamowienia,
+                    Data = z.Data,
+                    Koszt = z.Koszt,
+                    Imie = z.Klient?.Imie ?? string.Empty,
+                    Nazwisko = z.Klient?.Nazwisko ?? string.Empty,
+                    Pesel = z.Klient?.Pesel ?? string.Empty,
+                    Vin_pojazdu = z.Vin_pojazdu,
+                    Marka = marka,
+                    Model = model,
+                    Typ_silnika = z.Pojazd?.Typ_silnika ?? default,
+                    Moc = z.Pojazd?.Moc ?? 0,
+                    Pojemnosc = z.Pojazd?.Pojemnosc ?? 0,
+                    Fabryka = z.Pojazd?.Fabryka ?? default
+                });
+            }
+
+            return wynik;
+        }
+
+        /// <summary>
+        /// Pomocnicza metoda rozdzielająca nazwę modelu z bazy na markę i model pojazdu.
+        /// </summary>
+        /// <param name="nazwa">Pełna nazwa modelu pojazdu.</param>
+        /// <returns>Krotka zawierająca markę oraz model.</returns>
+        private static (string Marka, string Model) rozdzielMarkeIModel(string nazwa)
+        {
+            if (string.IsNullOrWhiteSpace(nazwa))
+            {
+                return (string.Empty, string.Empty);
+            }
+
+            string trimmed = nazwa.Trim();
+            if (trimmed.StartsWith("Alfa Romeo", StringComparison.OrdinalIgnoreCase))
+            {
+                return ("Alfa Romeo", trimmed.Substring("Alfa Romeo".Length).Trim());
+            }
+
+            int firstSpace = trimmed.IndexOf(' ');
+            if (firstSpace > 0)
+            {
+                return (trimmed.Substring(0, firstSpace), trimmed.Substring(firstSpace + 1).Trim());
+            }
+
+            return (trimmed, trimmed);
         }
         #endregion
     }

@@ -1,4 +1,4 @@
-﻿using projekt_bazy_danych.ViewModels;
+using projekt_bazy_danych.ViewModels;
 using System.Windows;
 
 

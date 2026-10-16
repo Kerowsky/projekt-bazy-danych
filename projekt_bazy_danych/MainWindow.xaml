@@ -73,6 +73,15 @@
                                  hc:InfoElement.Title="VIN pojazdu"
                                  Text="{Binding FilterVin, UpdateSourceTrigger=PropertyChanged}"/>
 
+                        <hc:UniformSpacingPanel Grid.Row="0" Grid.Column="3" Spacing="8" VerticalAlignment="Bottom" Margin="0,0,0,12" HorizontalAlignment="Right">
+                            <Button Content="Szukaj" Width="90"
+                                    Style="{StaticResource ButtonPrimary}"
+                                    Command="{Binding SzukajCommand}"/>
+                            <Button Content="Wyczyść" Width="90"
+                                    Style="{StaticResource ButtonDefault}"
+                                    Command="{Binding WyczyscFiltryCommand}"/>
+                        </hc:UniformSpacingPanel>
+
                         <ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,12,12"
                                   Style="{StaticResource ComboBoxExtend}"
                                   hc:InfoElement.Title="Marka pojazdu"
