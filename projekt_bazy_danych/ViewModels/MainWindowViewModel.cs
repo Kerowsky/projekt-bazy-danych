@@ -9,6 +9,7 @@ using projekt_bazy_danych.Common.Services;
 using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Domain.DTOs;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace projekt_bazy_danych.ViewModels
@@ -189,7 +190,7 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void PokazWykres()
         {
-            var window = new ChartWindow();
+            var window = new ChartWindow(Pojazdy.ToList());
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
         }

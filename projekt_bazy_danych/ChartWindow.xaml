@@ -3,21 +3,172 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:hc="https://handyorg.github.io/handycontrol"
         xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
-        Title="Wykres" Height="500" Width="800"
+        Title="Wykresy" Height="620" Width="1100"
         WindowStartupLocation="CenterOwner">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <Window.Resources>
+        <!-- Styl nagłówka sekcji w panelu bocznym -->
+        <Style x:Key="SidebarSectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource SecondaryTextBrush}"/>
+            <Setter Property="Margin" Value="0,12,0,4"/>
 
-        <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="24,14">
-            <TextBlock Text="Wykres zamówień"
-                       Style="{StaticResource TextBlockLargeBold}"
-                       Foreground="{DynamicResource TextIconBrush}"/>
+        </Style>
+
+        <!-- Styl przycisku wykresu -->
+        <Style x:Key="ChartButton" TargetType="Button" BasedOn="{StaticResource ButtonDefault}">
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="0,2,0,0"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Width" Value="220"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ===== PANEL BOCZNY ===== -->
+        <Border Grid.Column="0"
+                Background="{DynamicResource RegionBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,0,1,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Padding="10,10,10,10">
+                <StackPanel>
+
+                    <!-- Nagłówek panelu -->
+                    <TextBlock Text="Wybierz wykres"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource PrimaryTextBrush}"
+                               Margin="0,0,0,8"/>
+
+                    <Separator Margin="0,0,0,4"/>
+
+                    <!-- ── Słupkowe ── -->
+                    <TextBlock Text="Słupkowe" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnPrzychodModel"
+                            Content="Przychód wg modelu"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnPrzychodMarka"
+                            Content="Przychód wg marki"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnPrzychodFabryka"
+                            Content="Przychód wg fabryki"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnZamowieniaMBF"
+                            Style="{StaticResource ChartButton}">
+                        <TextBlock Text="Zamówienia wg marki/modelu/fabryki" TextWrapping="Wrap"/>
+                    </Button>
+
+                    <Button x:Name="BtnSredniKosztMBT"
+                            Style="{StaticResource ChartButton}">
+                        <TextBlock Text="Śr. koszt wg marki/modelu/silnika" TextWrapping="Wrap"/>
+                    </Button>
+
+                    <Button x:Name="BtnTopKlienci"
+                            Content="Top 10 klientów wg wydatków"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnSredniaMoc"
+                            Content="Śr. moc (KM) wg marki"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <!-- ── Liniowe ── -->
+                    <TextBlock Text="Liniowe (czas)" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnPrzychodMiesiac"
+                            Style="{StaticResource ChartButton}">
+                        <TextBlock Text="Przychód miesięcznie / kwartalnie" TextWrapping="Wrap"/>
+                    </Button>
+
+                    <Button x:Name="BtnZamowieniaMiesiac"
+                            Content="Zamówienia miesięcznie"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnPrzychodKumulatywny"
+                            Content="Przychód narastająco"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <!-- ── Kołowe ── -->
+                    <TextBlock Text="Kołowe" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnUdzialSilnik"
+                            Content="Udział typów silnika"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnUdzialFabryka"
+                            Content="Udział fabryk w przychodzie"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnUdzialMarka"
+                            Content="Udział marek w zamówieniach"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <!-- ── Słupkowe skumulowane ── -->
+                    <TextBlock Text="Skumulowane / grupowane" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnPrzychodMarkaSilnik"
+                            Style="{StaticResource ChartButton}">
+                        <TextBlock Text="Przychód wg marki × typ silnika" TextWrapping="Wrap"/>
+                    </Button>
+
+                    <Button x:Name="BtnPrzychodFabrykaMarki"
+                            Content="Przychód wg fabryki × marka"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnZamowieniaFabryki"
+                            Style="{StaticResource ChartButton}">
+                        <TextBlock Text="Zamówienia miesięcznie × fabryki" TextWrapping="Wrap"/>
+                    </Button>
+
+                    <!-- ── Scatter ── -->
+                    <TextBlock Text="Punktowe (scatter)" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnMocKoszt"
+                            Content="Moc vs koszt"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <Button x:Name="BtnPojemnoscKoszt"
+                            Content="Pojemność vs koszt (bez EV)"
+                            Style="{StaticResource ChartButton}"/>
+
+                    <!-- ── Histogramy ── -->
+                    <TextBlock Text="Histogramy" Style="{StaticResource SidebarSectionHeader}"/>
+
+                    <Button x:Name="BtnHistMoc"
+                            Content="Rozkład mocy (KM)"
+                            Style="{StaticResource ChartButton}"/>
+
+                </StackPanel>
+            </ScrollViewer>
         </Border>
 
-        <ScottPlot:WpfPlot x:Name="WpfPlotChart" Grid.Row="1" Margin="16"/>
+        <!-- ===== OBSZAR WYKRESU ===== -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="{DynamicResource PrimaryBrush}" Padding="24,14">
+                <TextBlock x:Name="ChartTitle"
+                           Text="Wykres zamówień"
+                           Style="{StaticResource TextBlockLargeBold}"
+                           Foreground="{DynamicResource TextIconBrush}"/>
+            </Border>
+
+            <ScottPlot:WpfPlot x:Name="WpfPlotChart" Grid.Row="1" Margin="16"/>
+        </Grid>
     </Grid>
 </Window>
