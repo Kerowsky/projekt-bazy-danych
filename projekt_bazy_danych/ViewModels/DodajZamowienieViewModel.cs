@@ -119,10 +119,11 @@ namespace projekt_bazy_danych.ViewModels
         private void inicjalizujListy()
         {
             Marki.Clear();
-            Marki.Add("Alfa Romeo");
             Marki.Add("Fiat");
-            Marki.Add("Jeep");
+            Marki.Add("Ford");
             Marki.Add("Lancia");
+            Marki.Add("Syrena");
+            Marki.Add("Volkswagen");
 
             TypySilnika.Clear();
             foreach (var name in Enum.GetNames<EngineType>())
@@ -151,24 +152,56 @@ namespace projekt_bazy_danych.ViewModels
 
             switch (marka)
             {
-                case "Alfa Romeo":
-                    Modele.Add("Tonale");
-                    break;
                 case "Fiat":
+                    Modele.Add("126p");
+                    Modele.Add("126p BIS");
+                    Modele.Add("127p");
                     Modele.Add("500");
-                    Modele.Add("Panda");
+                    Modele.Add("Cinquecento");
+                    Modele.Add("Palio Weekend");
+                    Modele.Add("Seicento");
+                    Modele.Add("Siena");
+                    Modele.Add("Uno");
                     break;
-                case "Jeep":
-                    Modele.Add("Avenger");
+                case "Ford":
+                    Modele.Add("Ka");
+                    Modele.Add("Tourneo Connect");
+                    Modele.Add("Transit Connect");
                     break;
                 case "Lancia":
                     Modele.Add("Ypsilon");
                     break;
+                case "Syrena":
+                    Modele.Add("105");
+                    Modele.Add("105L");
+                    Modele.Add("Bosto");
+                    Modele.Add("R-20");
+                    break;
+                case "Volkswagen":
+                    Modele.Add("Caddy");
+                    Modele.Add("Caddy California");
+                    Modele.Add("Caddy Cargo");
+                    break;
                 default:
+                    Modele.Add("105");
+                    Modele.Add("105L");
+                    Modele.Add("126p");
+                    Modele.Add("126p BIS");
+                    Modele.Add("127p");
                     Modele.Add("500");
-                    Modele.Add("Avenger");
-                    Modele.Add("Panda");
-                    Modele.Add("Tonale");
+                    Modele.Add("Bosto");
+                    Modele.Add("Caddy");
+                    Modele.Add("Caddy California");
+                    Modele.Add("Caddy Cargo");
+                    Modele.Add("Cinquecento");
+                    Modele.Add("Ka");
+                    Modele.Add("Palio Weekend");
+                    Modele.Add("R-20");
+                    Modele.Add("Seicento");
+                    Modele.Add("Siena");
+                    Modele.Add("Tourneo Connect");
+                    Modele.Add("Transit Connect");
+                    Modele.Add("Uno");
                     Modele.Add("Ypsilon");
                     break;
             }
