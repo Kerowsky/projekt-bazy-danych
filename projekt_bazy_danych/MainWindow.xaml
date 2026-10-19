@@ -197,12 +197,55 @@
             <DataGrid Grid.Row="2"
                       ItemsSource="{Binding Pojazdy}"
                       SelectedItem="{Binding WybraneZamowienie}"
-                      AutoGenerateColumns="True"
+                      AutoGenerateColumns="False"
                       IsReadOnly="True"
                       SelectionMode="Single"
                       CanUserAddRows="False"
                       HeadersVisibility="Column"
-                      RowHeaderWidth="0"/>
+                      GridLinesVisibility="Horizontal"
+                      RowHeaderWidth="0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID zamówienia"
+                                        Binding="{Binding Id_zamowienia}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Imię"
+                                        Binding="{Binding Imie}"
+                                        Width="*"/>
+                    <DataGridTextColumn Header="Nazwisko"
+                                        Binding="{Binding Nazwisko}"
+                                        Width="*"/>
+                    <DataGridTextColumn Header="PESEL"
+                                        Binding="{Binding Pesel}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="VIN pojazdu"
+                                        Binding="{Binding Vin_pojazdu}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Marka"
+                                        Binding="{Binding Marka}"
+                                        Width="*"/>
+                    <DataGridTextColumn Header="Model"
+                                        Binding="{Binding Model}"
+                                        Width="*"/>
+                    <DataGridTextColumn Header="Typ silnika"
+                                        Binding="{Binding Typ_silnika}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Moc"
+                                        Binding="{Binding Moc, StringFormat='{}{0} KM'}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Pojemność"
+                                        Binding="{Binding Pojemnosc, StringFormat='{}{0} cm³'}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Fabryka"
+                                        Binding="{Binding Fabryka}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Koszt"
+                                        Binding="{Binding Koszt, StringFormat='{}{0:N0} zł'}"
+                                        Width="Auto"/>
+                    <DataGridTextColumn Header="Data zamówienia"
+                                        Binding="{Binding Data, StringFormat='{}{0:dd.MM.yyyy}'}"
+                                        Width="Auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </Grid>
 
     </Grid>
