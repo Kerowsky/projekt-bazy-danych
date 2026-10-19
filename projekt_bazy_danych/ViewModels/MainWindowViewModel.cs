@@ -42,22 +42,22 @@ namespace projekt_bazy_danych.ViewModels
         public ObservableCollection<string> Marki { get; } = [];
 
         [ObservableProperty]
-        private string? selectedMarka;
+        private string? selectedMarka = FilterConstants.brakWyboru;
 
         public ObservableCollection<string> Modele { get; } = [];
 
         [ObservableProperty]
-        private string? selectedModel;
+        private string? selectedModel = FilterConstants.brakWyboru;
 
         public ObservableCollection<string> TypySilnika { get; } = [];
 
         [ObservableProperty]
-        private string? selectedTypSilnika;
+        private string? selectedTypSilnika = FilterConstants.brakWyboru;
 
         public ObservableCollection<string> Fabryki { get; } = [];
 
         [ObservableProperty]
-        private string? selectedFactory;
+        private string? selectedFactory = FilterConstants.brakWyboru;
 
         [ObservableProperty]
         private string? filterKosztOd;
@@ -159,10 +159,10 @@ namespace projekt_bazy_danych.ViewModels
                 FilterImie = null;
                 FilterNazwisko = null;
                 FilterVin = null;
-                SelectedMarka = null;
-                SelectedModel = null;
-                SelectedTypSilnika = null;
-                SelectedFactory = null;
+                SelectedMarka = FilterConstants.brakWyboru;
+                SelectedModel = FilterConstants.brakWyboru;
+                SelectedTypSilnika = FilterConstants.brakWyboru;
+                SelectedFactory = FilterConstants.brakWyboru;
                 FilterKosztOd = null;
                 FilterKosztDo = null;
                 FilterMocOd = null;
@@ -261,6 +261,11 @@ namespace projekt_bazy_danych.ViewModels
             Modele.Add("Panda");
             Modele.Add("Tonale");
             Modele.Add("Ypsilon");
+
+            SelectedFactory = FilterConstants.brakWyboru;
+            SelectedTypSilnika = FilterConstants.brakWyboru;
+            SelectedMarka = FilterConstants.brakWyboru;
+            SelectedModel = FilterConstants.brakWyboru;
         }
 
         /// <summary>

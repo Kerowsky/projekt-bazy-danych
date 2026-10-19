@@ -33,7 +33,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -59,11 +59,18 @@
                          hc:InfoElement.Necessary="True"
                          Text="{Binding Nazwisko, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Text="Pojazd"
+                <TextBox Grid.Row="2" Grid.ColumnSpan="2" Margin="0,0,0,12"
+                         Style="{StaticResource TextBoxExtend}"
+                         hc:InfoElement.Title="PESEL"
+                         hc:InfoElement.Necessary="True"
+                         MaxLength="11"
+                         Text="{Binding Pesel, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Text="Pojazd"
                            Style="{StaticResource TextBlockSubTitleBold}"
                            Margin="0,4,0,10"/>
 
-                <TextBox Grid.Row="3" Grid.ColumnSpan="2" Margin="0,0,0,12"
+                <TextBox Grid.Row="4" Grid.ColumnSpan="2" Margin="0,0,0,12"
                          Style="{StaticResource TextBoxExtend}"
                          hc:InfoElement.Title="VIN"
                          hc:InfoElement.Necessary="True"
@@ -71,7 +78,7 @@
                          CharacterCasing="Upper"
                          Text="{Binding Vin, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <ComboBox Grid.Row="4" Grid.Column="0" Margin="0,0,6,12"
+                <ComboBox Grid.Row="5" Grid.Column="0" Margin="0,0,6,12"
                           Style="{StaticResource ComboBoxExtend}"
                           hc:InfoElement.Title="Marka"
                           hc:InfoElement.Necessary="True"
@@ -79,7 +86,7 @@
                           ItemsSource="{Binding Marki}"
                           SelectedItem="{Binding SelectedMarka}"/>
 
-                <ComboBox Grid.Row="4" Grid.Column="1" Margin="6,0,0,12"
+                <ComboBox Grid.Row="5" Grid.Column="1" Margin="6,0,0,12"
                           Style="{StaticResource ComboBoxExtend}"
                           hc:InfoElement.Title="Model"
                           hc:InfoElement.Necessary="True"
@@ -87,7 +94,7 @@
                           ItemsSource="{Binding Modele}"
                           SelectedItem="{Binding SelectedModel}"/>
 
-                <ComboBox Grid.Row="5" Grid.Column="0" Margin="0,0,6,12"
+                <ComboBox Grid.Row="6" Grid.Column="0" Margin="0,0,6,12"
                           Style="{StaticResource ComboBoxExtend}"
                           hc:InfoElement.Title="Typ silnika"
                           hc:InfoElement.Necessary="True"
@@ -95,7 +102,7 @@
                           ItemsSource="{Binding TypySilnika}"
                           SelectedItem="{Binding SelectedTypSilnika}"/>
 
-                <ComboBox Grid.Row="5" Grid.Column="1" Margin="6,0,0,12"
+                <ComboBox Grid.Row="6" Grid.Column="1" Margin="6,0,0,12"
                           Style="{StaticResource ComboBoxExtend}"
                           hc:InfoElement.Title="Fabryka"
                           hc:InfoElement.Necessary="True"
@@ -103,42 +110,42 @@
                           ItemsSource="{Binding Fabryki}"
                           SelectedItem="{Binding SelectedFactory}"/>
 
-                <TextBox Grid.Row="6" Grid.Column="0" Margin="0,0,6,12"
+                <TextBox Grid.Row="7" Grid.Column="0" Margin="0,0,6,12"
                          Style="{StaticResource TextBoxExtend}"
                          hc:InfoElement.Title="Moc (KM)"
                          hc:InfoElement.Necessary="True"
                          Text="{Binding Moc, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBox Grid.Row="6" Grid.Column="1" Margin="6,0,0,12"
+                <TextBox Grid.Row="7" Grid.Column="1" Margin="6,0,0,12"
                          Style="{StaticResource TextBoxExtend}"
                          hc:InfoElement.Title="Pojemność (cm³)"
                          hc:InfoElement.Placeholder="puste dla elektrycznych"
                          Text="{Binding Pojemnosc, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Grid.Row="7" Grid.ColumnSpan="2" Text="Zamówienie"
+                <TextBlock Grid.Row="8" Grid.ColumnSpan="2" Text="Zamówienie"
                            Style="{StaticResource TextBlockSubTitleBold}"
                            Margin="0,4,0,10"/>
 
-                <TextBox Grid.Row="8" Grid.Column="0" Margin="0,0,6,16"
+                <TextBox Grid.Row="9" Grid.Column="0" Margin="0,0,6,16"
                          Style="{StaticResource TextBoxExtend}"
                          hc:InfoElement.Title="Koszt (zł)"
                          hc:InfoElement.Necessary="True"
                          Text="{Binding Koszt, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <hc:DatePicker Grid.Row="8" Grid.Column="1" Margin="6,0,0,16"
+                <hc:DatePicker Grid.Row="9" Grid.Column="1" Margin="6,0,0,16"
                                Style="{StaticResource DatePickerExtend}"
                                hc:InfoElement.Title="Data zamówienia"
                                hc:InfoElement.Necessary="True"
                                SelectedDate="{Binding DataZamowienia}"/>
 
-                <hc:UniformSpacingPanel Grid.Row="9" Grid.ColumnSpan="2" Spacing="8"
+                <hc:UniformSpacingPanel Grid.Row="10" Grid.ColumnSpan="2" Spacing="8"
                                         HorizontalAlignment="Right">
                     <Button Content="Anuluj" Width="90"
                             Style="{StaticResource ButtonDefault}"
                             IsCancel="True"/>
                     <Button Content="Zapisz" Width="90"
                             Style="{StaticResource ButtonPrimary}"
-                            Command="{Binding ZapiszCommand}"
+                            Command="{Binding zapiszCommand}"
                             CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}"
                             IsDefault="True"/>
                 </hc:UniformSpacingPanel>

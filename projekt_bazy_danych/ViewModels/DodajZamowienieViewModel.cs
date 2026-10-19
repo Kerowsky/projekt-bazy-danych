@@ -1,81 +1,229 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using projekt_bazy_danych.Common;
+using projekt_bazy_danych.Common.Enums;
+using projekt_bazy_danych.Common.Services;
+using projekt_bazy_danych.Common.Utils;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows;
 
 namespace projekt_bazy_danych.ViewModels
 {
+    /// <summary>
+    /// Model widoku formularza dodawania nowego zamówienia do bazy danych.
+    /// </summary>
     public partial class DodajZamowienieViewModel : ObservableObject
     {
-     
+        #region Fields
+        private readonly Datacontext context;
+
+        private readonly AddDataService addDataService;
+        #endregion
+
+        #region Properties
         public Action<bool>? ZamknijOkno { get; set; }
 
+        [ObservableProperty]
+        private string? imie;
 
         [ObservableProperty]
-        private string _koszt = string.Empty;
+        private string? nazwisko;
 
-        // ── Konstruktor ─────────────────────────────────────────────────────────
+        [ObservableProperty]
+        private string? pesel;
 
-        public DodajZamowienieViewModel()
+        [ObservableProperty]
+        private string? vin;
+
+        [ObservableProperty]
+        private string? selectedMarka;
+
+        [ObservableProperty]
+        private string? selectedModel;
+
+        [ObservableProperty]
+        private string? selectedTypSilnika;
+
+        [ObservableProperty]
+        private string? selectedFactory;
+
+        [ObservableProperty]
+        private string? moc;
+
+        [ObservableProperty]
+        private string? pojemnosc;
+
+        [ObservableProperty]
+        private string? koszt;
+
+        [ObservableProperty]
+        private DateTime? dataZamowienia = DateTime.Now;
+
+        public ObservableCollection<string> Marki { get; } = [];
+
+        public ObservableCollection<string> Modele { get; } = [];
+
+        public ObservableCollection<string> TypySilnika { get; } = [];
+
+        public ObservableCollection<string> Fabryki { get; } = [];
+
+        /// <summary>
+        /// Alias komendy zapisu dla zachowania kompatybilności z wiązaniem w XAML.
+        /// </summary>
+        public IRelayCommand ZapiszCommand => zapiszCommand;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Inicjalizuje nową instancję klasy <see cref="DodajZamowienieViewModel"/>.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych Entity Framework.</param>
+        /// <param name="addDataService">Serwis dodawania danych.</param>
+        public DodajZamowienieViewModel(
+            Datacontext context,
+            AddDataService addDataService)
         {
-            // _context = context;
-            //_ = ZaladujAsync();
+            this.context = context;
+            this.addDataService = addDataService;
+
+            inicjalizujListy();
         }
+        #endregion
 
-        // ── Komendy ─────────────────────────────────────────────────────────────
-
+        #region Commands
+        /// <summary>
+        /// Wywołuje asynchroniczną komendę zapisu nowego zamówienia.
+        /// </summary>
         [RelayCommand]
-        private void Zapisz()
+        private void zapisz()
         {
+            _ = zapiszAsync();
+        }
+        #endregion
 
-            string tekst = Koszt.Trim().Replace('.', ',');
-            if (!decimal.TryParse(tekst, NumberStyles.Number,
-                    CultureInfo.GetCultureInfo("pl-PL"), out decimal koszt) || koszt < 0)
+        #region Events
+        /// <summary>
+        /// Reaguje na zmianę wybranej marki pojazdu, aktualizując listę powiązanych modeli.
+        /// </summary>
+        /// <param name="value">Nowa wybrana marka.</param>
+        partial void OnSelectedMarkaChanged(string? value)
+        {
+            aktualizujModele(value);
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Inicjalizuje kolekcje marek, typów silników i fabryk dla kontrolek formularza.
+        /// </summary>
+        private void inicjalizujListy()
+        {
+            Marki.Clear();
+            Marki.Add("Alfa Romeo");
+            Marki.Add("Fiat");
+            Marki.Add("Jeep");
+            Marki.Add("Lancia");
+
+            TypySilnika.Clear();
+            foreach (var name in Enum.GetNames<EngineType>())
             {
-                MessageBox.Show("Koszt musi być liczbą nieujemną.", "Błąd walidacji",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                TypySilnika.Add(name);
             }
 
-            ZamknijOkno?.Invoke(true);
+            Fabryki.Clear();
+            foreach (var name in Enum.GetNames<FactoryIdentity>())
+            {
+                Fabryki.Add(name);
+            }
+
+            SelectedMarka = Marki.FirstOrDefault();
+            SelectedTypSilnika = TypySilnika.FirstOrDefault();
+            SelectedFactory = Fabryki.FirstOrDefault();
         }
 
-        // ── Prywatne metody ─────────────────────────────────────────────────────
-
-        private async Task ZaladujAsync()
+        /// <summary>
+        /// Aktualizuje listę dostępnych modeli pojazdów na podstawie wybranej marki.
+        /// </summary>
+        /// <param name="marka">Nazwa wybranej marki.</param>
+        private void aktualizujModele(string? marka)
         {
-            try
+            Modele.Clear();
+
+            switch (marka)
             {
-                //var klienci = await Task.Run(() =>
-                //    _context.Klienci
-                //        .Select(k => new KlientItem
-                //        {
-                //            IdKlienta = k.Id,
-                //            PelneImie = k.Imie + " " + k.Nazwisko
-                //        })
-                //        .ToList());
-
-                //var pojazdy = await Task.Run(() =>
-                //    _context.Pojazdy
-                //        .Select(p => new PojazdItem
-                //        {
-                //            VinPojazdu = p.Vin_pojazdu,
-                //            NazwaModelu = p.Model
-                //        })
-                //        .ToList());
-
-                //Klienci.Clear();
-                //foreach (var k in klienci) Klienci.Add(k);
-
-                //Pojazdy.Clear();
-                //foreach (var p in pojazdy) Pojazdy.Add(p);
+                case "Alfa Romeo":
+                    Modele.Add("Tonale");
+                    break;
+                case "Fiat":
+                    Modele.Add("500");
+                    Modele.Add("Panda");
+                    break;
+                case "Jeep":
+                    Modele.Add("Avenger");
+                    break;
+                case "Lancia":
+                    Modele.Add("Ypsilon");
+                    break;
+                default:
+                    Modele.Add("500");
+                    Modele.Add("Avenger");
+                    Modele.Add("Panda");
+                    Modele.Add("Tonale");
+                    Modele.Add("Ypsilon");
+                    break;
             }
-            catch (Exception ex)
+
+            SelectedModel = Modele.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Asynchronicznie dodaje zamówienie do bazy danych korzystając z serwisu danych i informuje użytkownika o wyniku.
+        /// </summary>
+        private async Task zapiszAsync()
+        {
+            ResultWithMessage result = await addDataService.AddNewZamowienie(
+                Imie,
+                Nazwisko,
+                Pesel,
+                Vin,
+                SelectedMarka,
+                SelectedModel,
+                SelectedTypSilnika,
+                SelectedFactory,
+                Moc,
+                Pojemnosc,
+                Koszt,
+                DataZamowienia);
+
+            if (!result.IsValid)
             {
-                MessageBox.Show($"Błąd podczas ładowania danych:\n{ex.Message}",
-                    "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(result.Message, "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                MessageBox.Show(result.Message, "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                wyczyscFormularz();
+                ZamknijOkno?.Invoke(true);
             }
         }
+
+        /// <summary>
+        /// Czyści formularz dodawania zamówienia po poprawnym zapisie.
+        /// </summary>
+        private void wyczyscFormularz()
+        {
+            Imie = string.Empty;
+            Nazwisko = string.Empty;
+            Pesel = string.Empty;
+            Vin = string.Empty;
+            Moc = string.Empty;
+            Pojemnosc = string.Empty;
+            Koszt = string.Empty;
+            DataZamowienia = DateTime.Now;
+            SelectedMarka = Marki.FirstOrDefault();
+            SelectedTypSilnika = TypySilnika.FirstOrDefault();
+            SelectedFactory = Fabryki.FirstOrDefault();
+        }
+        #endregion
     }
 }
