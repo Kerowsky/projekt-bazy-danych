@@ -7,6 +7,7 @@ using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers;
 using projekt_bazy_danych.Domain.DTOs;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace projekt_bazy_danych.ViewModels
@@ -132,7 +133,7 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void PokazWykres()
         {
-            var window = new ChartWindow();
+            var window = new ChartWindow(Pojazdy.ToList());
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
         }
