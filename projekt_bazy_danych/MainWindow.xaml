@@ -79,7 +79,7 @@
                                     Command="{Binding SzukajCommand}"/>
                             <Button Content="Wyczyść" Width="90"
                                     Style="{StaticResource ButtonDefault}"
-                                    Command="{Binding WyczyscFiltryCommand}"/>
+                                    Command="{Binding wyczyscFiltryCommand}"/>
                         </hc:UniformSpacingPanel>
 
                         <ComboBox Grid.Row="1" Grid.Column="0" Margin="0,0,12,12"
@@ -167,10 +167,12 @@
                             <hc:DatePicker Grid.Column="0" Margin="0,0,6,0"
                                            Style="{StaticResource DatePickerExtend}"
                                            hc:InfoElement.Title="Data zamówienia od"
+                                           hc:InfoElement.ShowClearButton="True"
                                            SelectedDate="{Binding FilterDataOd}"/>
                             <hc:DatePicker Grid.Column="1" Margin="6,0,0,0"
                                            Style="{StaticResource DatePickerExtend}"
                                            hc:InfoElement.Title="Data zamówienia do"
+                                           hc:InfoElement.ShowClearButton="True"
                                            SelectedDate="{Binding FilterDataDo}"/>
                         </Grid>
                     </Grid>

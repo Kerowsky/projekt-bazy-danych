@@ -2,6 +2,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
 using projekt_bazy_danych.Common;
+using projekt_bazy_danych.Common.Constants;
 using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers;
 using projekt_bazy_danych.Domain.DTOs;
@@ -19,6 +20,8 @@ namespace projekt_bazy_danych.ViewModels
 
         private readonly DodajKlientaViewModel dodajKlientaVM;
         private readonly DodajPojazdViewModel dodajPojazdVM;
+
+        private bool czyCzyszczeFiltry;
         #endregion
 
         #region Properties
@@ -150,21 +153,29 @@ namespace projekt_bazy_danych.ViewModels
         [RelayCommand]
         private void wyczyscFiltry()
         {
-            FilterImie = null;
-            FilterNazwisko = null;
-            FilterVin = null;
-            SelectedMarka = null;
-            SelectedModel = null;
-            SelectedTypSilnika = null;
-            SelectedFactory = null;
-            FilterKosztOd = null;
-            FilterKosztDo = null;
-            FilterMocOd = null;
-            FilterMocDo = null;
-            FilterPojemnoscOd = null;
-            FilterPojemnoscDo = null;
-            FilterDataOd = null;
-            FilterDataDo = null;
+            czyCzyszczeFiltry = true;
+            try
+            {
+                FilterImie = null;
+                FilterNazwisko = null;
+                FilterVin = null;
+                SelectedMarka = null;
+                SelectedModel = null;
+                SelectedTypSilnika = null;
+                SelectedFactory = null;
+                FilterKosztOd = null;
+                FilterKosztDo = null;
+                FilterMocOd = null;
+                FilterMocDo = null;
+                FilterPojemnoscOd = null;
+                FilterPojemnoscDo = null;
+                FilterDataOd = null;
+                FilterDataDo = null;
+            }
+            finally
+            {
+                czyCzyszczeFiltry = false;
+            }
 
             _ = ZaladujDaneDoTabeliAsync();
         }
@@ -177,7 +188,10 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="value">Nowa wybrana fabryka.</param>
         partial void OnSelectedFactoryChanged(string? value)
         {
-            _ = ZaladujDaneDoTabeliAsync();
+            if (!czyCzyszczeFiltry)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
         }
 
         /// <summary>
@@ -186,7 +200,10 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="value">Nowa wybrana marka.</param>
         partial void OnSelectedMarkaChanged(string? value)
         {
-            _ = ZaladujDaneDoTabeliAsync();
+            if (!czyCzyszczeFiltry)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
         }
 
         /// <summary>
@@ -195,7 +212,10 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="value">Nowy wybrany model.</param>
         partial void OnSelectedModelChanged(string? value)
         {
-            _ = ZaladujDaneDoTabeliAsync();
+            if (!czyCzyszczeFiltry)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
         }
 
         /// <summary>
@@ -204,7 +224,10 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="value">Nowy wybrany typ silnika.</param>
         partial void OnSelectedTypSilnikaChanged(string? value)
         {
-            _ = ZaladujDaneDoTabeliAsync();
+            if (!czyCzyszczeFiltry)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
         }
         #endregion
 
@@ -214,21 +237,25 @@ namespace projekt_bazy_danych.ViewModels
         /// </summary>
         private void inicjalizujFiltry()
         {
+            Fabryki.Add(FilterConstants.brakWyboru);
             foreach (var name in Enum.GetNames<FactoryIdentity>())
             {
                 Fabryki.Add(name);
             }
 
+            TypySilnika.Add(FilterConstants.brakWyboru);
             foreach (var name in Enum.GetNames<EngineType>())
             {
                 TypySilnika.Add(name);
             }
 
+            Marki.Add(FilterConstants.brakWyboru);
             Marki.Add("Alfa Romeo");
             Marki.Add("Fiat");
             Marki.Add("Jeep");
             Marki.Add("Lancia");
 
+            Modele.Add(FilterConstants.brakWyboru);
             Modele.Add("500");
             Modele.Add("Avenger");
             Modele.Add("Panda");
@@ -247,10 +274,10 @@ namespace projekt_bazy_danych.ViewModels
                 Imie = string.IsNullOrWhiteSpace(FilterImie) ? null : FilterImie.Trim(),
                 Nazwisko = string.IsNullOrWhiteSpace(FilterNazwisko) ? null : FilterNazwisko.Trim(),
                 Vin = int.TryParse(FilterVin?.Trim(), out int vinVal) ? vinVal : null,
-                Marka = string.IsNullOrWhiteSpace(SelectedMarka) ? null : SelectedMarka,
-                Model = string.IsNullOrWhiteSpace(SelectedModel) ? null : SelectedModel,
-                TypSilnika = Enum.TryParse<EngineType>(SelectedTypSilnika, out EngineType silnik) ? silnik : null,
-                Fabryka = Enum.TryParse<FactoryIdentity>(SelectedFactory, out FactoryIdentity fabryka) ? fabryka : null,
+                Marka = string.IsNullOrWhiteSpace(SelectedMarka) || SelectedMarka == FilterConstants.brakWyboru ? null : SelectedMarka,
+                Model = string.IsNullOrWhiteSpace(SelectedModel) || SelectedModel == FilterConstants.brakWyboru ? null : SelectedModel,
+                TypSilnika = SelectedTypSilnika == FilterConstants.brakWyboru ? null : (Enum.TryParse<EngineType>(SelectedTypSilnika, out EngineType silnik) ? silnik : null),
+                Fabryka = SelectedFactory == FilterConstants.brakWyboru ? null : (Enum.TryParse<FactoryIdentity>(SelectedFactory, out FactoryIdentity fabryka) ? fabryka : null),
                 KosztOd = int.TryParse(FilterKosztOd?.Trim(), out int kOd) ? kOd : null,
                 KosztDo = int.TryParse(FilterKosztDo?.Trim(), out int kDo) ? kDo : null,
                 MocOd = int.TryParse(FilterMocOd?.Trim(), out int mOd) ? mOd : null,
