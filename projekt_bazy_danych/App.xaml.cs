@@ -28,6 +28,9 @@ namespace projekt_bazy_danych
                     services.AddTransient<DodajPojazdView>();
                     services.AddTransient<DataProvider>();
                     services.AddTransient<AddDataService>();
+                    services.AddTransient<EditDataService>();
+                    services.AddTransient<EdytujZamowienieViewModel>();
+                    services.AddTransient<EdytujZamowienieWindow>();
                 })
                 .Build();
         }

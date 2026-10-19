@@ -5,6 +5,7 @@ using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Common.Constants;
 using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers;
+using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Domain.DTOs;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -20,6 +21,7 @@ namespace projekt_bazy_danych.ViewModels
 
         private readonly DodajKlientaViewModel dodajKlientaVM;
         private readonly DodajPojazdViewModel dodajPojazdVM;
+        private readonly EdytujZamowienieViewModel edytujZamowienieVM;
 
         private bool czyCzyszczeFiltry;
         #endregion
@@ -82,6 +84,16 @@ namespace projekt_bazy_danych.ViewModels
 
         [ObservableProperty]
         private DateTime? filterDataDo;
+
+        /// <summary>
+        /// Alias komendy usuwania dla zachowania zgodności z wiązaniami w XAML.
+        /// </summary>
+        public IRelayCommand UsunCommand => usunCommand;
+
+        /// <summary>
+        /// Alias komendy edycji dla zachowania zgodności z wiązaniami w XAML.
+        /// </summary>
+        public IRelayCommand EdytujCommand => edytujCommand;
         #endregion
 
         #region Constructors
@@ -92,16 +104,19 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="dodajKlientaVM">Model widoku dodawania klienta.</param>
         /// <param name="dodajPojazdVM">Model widoku dodawania pojazdu.</param>
         /// <param name="dataProvider">Dostawca danych widoku.</param>
+        /// <param name="edytujZamowienieVM">Model widoku edycji zamówienia.</param>
         public MainWindowViewModel(
             DodajZamowienieViewModel dodajZamowienieVM,
             DodajKlientaViewModel dodajKlientaVM,
             DodajPojazdViewModel dodajPojazdVM,
-            DataProvider dataProvider)
+            DataProvider dataProvider,
+            EdytujZamowienieViewModel edytujZamowienieVM)
         {
             this.dodajZamowienieVM = dodajZamowienieVM;
             this.dodajKlientaVM = dodajKlientaVM;
             this.dodajPojazdVM = dodajPojazdVM;
             this.dataProvider = dataProvider;
+            this.edytujZamowienieVM = edytujZamowienieVM;
 
             inicjalizujFiltry();
         }
@@ -117,7 +132,39 @@ namespace projekt_bazy_danych.ViewModels
             var test = new DodajZamowienieWindow(this.dodajZamowienieVM);
 
             test.Owner = Application.Current.MainWindow;
-            test.ShowDialog();
+            bool? wynik = test.ShowDialog();
+            if (wynik == true)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
+        }
+
+        /// <summary>
+        /// Wywołuje asynchroniczną komendę otwarcia okna edycji dla zaznaczonego zamówienia.
+        /// </summary>
+        [RelayCommand]
+        private void edytuj()
+        {
+            if (WybraneZamowienie == null)
+            {
+                MessageBox.Show(
+                    "Proszę zaznaczyć w tabeli zamówienie, które ma zostać poddane edycji.",
+                    "Brak wyboru",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            this.edytujZamowienieVM.zaladujDane(WybraneZamowienie);
+
+            var window = new EdytujZamowienieWindow(this.edytujZamowienieVM);
+            window.Owner = Application.Current.MainWindow;
+            bool? wynik = window.ShowDialog();
+
+            if (wynik == true)
+            {
+                _ = ZaladujDaneDoTabeliAsync();
+            }
         }
 
         [RelayCommand]
@@ -145,6 +192,15 @@ namespace projekt_bazy_danych.ViewModels
             window.ShowDialog();
 
             Pojazdy.Clear();
+        }
+
+        /// <summary>
+        /// Wywołuje asynchroniczną komendę usunięcia zaznaczonego zamówienia.
+        /// </summary>
+        [RelayCommand]
+        private void usun()
+        {
+            _ = usunAsync();
         }
 
         /// <summary>
@@ -310,6 +366,53 @@ namespace projekt_bazy_danych.ViewModels
             {
                 MessageBox.Show($"Błąd podczas ładowania danych:\n{ex.Message}",
                     "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Asynchronicznie usuwa zaznaczone zamówienie z bazy danych po uprzednim potwierdzeniu przez użytkownika.
+        /// </summary>
+        private async Task usunAsync()
+        {
+            if (WybraneZamowienie == null)
+            {
+                MessageBox.Show(
+                    "Proszę zaznaczyć w tabeli zamówienie, które ma zostać usunięte.",
+                    "Brak wyboru",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+                return;
+            }
+
+            MessageBoxResult potwierdzenie = MessageBox.Show(
+                $"Czy na pewno chcesz usunąć zamówienie dla klienta {WybraneZamowienie.Imie} {WybraneZamowienie.Nazwisko} (VIN: {WybraneZamowienie.Vin_pojazdu})?",
+                "Potwierdzenie usunięcia",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (potwierdzenie != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                ResultWithMessage result = await dataProvider.UsunZamowienie(WybraneZamowienie.Id_zamowienia);
+
+                if (!result.IsValid)
+                {
+                    MessageBox.Show(result.Message, "Błąd usuwania", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(result.Message, "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                    WybraneZamowienie = null;
+                    await ZaladujDaneDoTabeliAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas usuwania zamówienia:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

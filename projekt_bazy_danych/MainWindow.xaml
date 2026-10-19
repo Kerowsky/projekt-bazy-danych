@@ -185,10 +185,10 @@
                         Command="{Binding DodajCommand}"/>
                 <Button Content="Edytuj zaznaczone"
                         Style="{StaticResource ButtonDefault}"
-                        Command="{Binding EdytujCommand}"/>
+                        Command="{Binding edytujCommand}"/>
                 <Button Content="Usuń zaznaczone"
                         Style="{StaticResource ButtonDanger}"
-                        Command="{Binding UsunCommand}"/>
+                        Command="{Binding usunCommand}"/>
                 <Button Content="📊 Wykres"
                         Style="{StaticResource ButtonDefault}"
                         Command="{Binding PokazWykresCommand}"/>

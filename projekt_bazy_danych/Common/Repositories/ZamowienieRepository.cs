@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Entities;
 
 namespace projekt_bazy_danych.Common.Repositories
@@ -114,6 +115,32 @@ namespace projekt_bazy_danych.Common.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        /// <summary>
+        /// Usuwa zamówienie o podanym identyfikatorze z bazy danych.
+        /// </summary>
+        /// <param name="idZamowienia">Identyfikator usuwanego zamówienia.</param>
+        /// <returns>Obiekt ResultWithMessage informujący o powodzeniu lub błędzie operacji.</returns>
+        public async Task<ResultWithMessage> UsunZamowienie(Guid idZamowienia)
+        {
+            try
+            {
+                Zamowienie? zamowienie = await zamowieniaDbSet.FirstOrDefaultAsync(z => z.Id_zamowienia == idZamowienia);
+                if (zamowienie == null)
+                {
+                    return new ResultWithMessage(false, "Nie odnaleziono zamówienia w bazie danych.");
+                }
+
+                zamowieniaDbSet.Remove(zamowienie);
+                await base.context.SaveChangesAsync();
+
+                return new ResultWithMessage(true, "Pomyślnie usunięto zamówienie.");
+            }
+            catch (Exception ex)
+            {
+                return new ResultWithMessage(false, $"Błąd podczas usuwania zamówienia z bazy danych: {ex.Message}");
+            }
         }
     }
 }

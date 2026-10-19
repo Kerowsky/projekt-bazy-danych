@@ -1,6 +1,7 @@
 using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers.Interfaces;
 using projekt_bazy_danych.Common.Repositories;
+using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Domain.DTOs;
 using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Entities;
@@ -172,6 +173,16 @@ namespace projekt_bazy_danych.Common.Providers
             }
 
             return (trimmed, trimmed);
+        }
+
+        /// <summary>
+        /// Usuwa zamówienie z bazy danych za pośrednictwem repozytorium zamówień.
+        /// </summary>
+        /// <param name="idZamowienia">Identyfikator zamówienia do usunięcia.</param>
+        /// <returns>Obiekt ResultWithMessage informujący o wyniku operacji.</returns>
+        public async Task<ResultWithMessage> UsunZamowienie(Guid idZamowienia)
+        {
+            return await zamowienieRepository.UsunZamowienie(idZamowienia);
         }
         #endregion
     }
