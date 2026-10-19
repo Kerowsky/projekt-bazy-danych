@@ -29,6 +29,7 @@ namespace projekt_bazy_danych
                     services.AddTransient<DataProvider>();
                     services.AddTransient<AddDataService>();
                     services.AddTransient<EditDataService>();
+                    services.AddTransient<CsvExportService>();
                     services.AddTransient<EdytujZamowienieViewModel>();
                     services.AddTransient<EdytujZamowienieWindow>();
                 })

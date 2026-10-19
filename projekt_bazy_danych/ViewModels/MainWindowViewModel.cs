@@ -5,6 +5,7 @@ using projekt_bazy_danych.Common;
 using projekt_bazy_danych.Common.Constants;
 using projekt_bazy_danych.Common.Enums;
 using projekt_bazy_danych.Common.Providers;
+using projekt_bazy_danych.Common.Services;
 using projekt_bazy_danych.Common.Utils;
 using projekt_bazy_danych.Domain.DTOs;
 using System.Collections.ObjectModel;
@@ -22,6 +23,7 @@ namespace projekt_bazy_danych.ViewModels
         private readonly DodajKlientaViewModel dodajKlientaVM;
         private readonly DodajPojazdViewModel dodajPojazdVM;
         private readonly EdytujZamowienieViewModel edytujZamowienieVM;
+        private readonly CsvExportService csvExportService;
 
         private bool czyCzyszczeFiltry;
         #endregion
@@ -94,6 +96,11 @@ namespace projekt_bazy_danych.ViewModels
         /// Alias komendy edycji dla zachowania zgodności z wiązaniami w XAML.
         /// </summary>
         public IRelayCommand EdytujCommand => edytujCommand;
+
+        /// <summary>
+        /// Alias komendy eksportu CSV dla zachowania zgodności z wiązaniami w XAML.
+        /// </summary>
+        public IRelayCommand EksportujCsvCommand => eksportujCsvCommand;
         #endregion
 
         #region Constructors
@@ -105,18 +112,21 @@ namespace projekt_bazy_danych.ViewModels
         /// <param name="dodajPojazdVM">Model widoku dodawania pojazdu.</param>
         /// <param name="dataProvider">Dostawca danych widoku.</param>
         /// <param name="edytujZamowienieVM">Model widoku edycji zamówienia.</param>
+        /// <param name="csvExportService">Serwis eksportu danych do formatu CSV.</param>
         public MainWindowViewModel(
             DodajZamowienieViewModel dodajZamowienieVM,
             DodajKlientaViewModel dodajKlientaVM,
             DodajPojazdViewModel dodajPojazdVM,
             DataProvider dataProvider,
-            EdytujZamowienieViewModel edytujZamowienieVM)
+            EdytujZamowienieViewModel edytujZamowienieVM,
+            CsvExportService csvExportService)
         {
             this.dodajZamowienieVM = dodajZamowienieVM;
             this.dodajKlientaVM = dodajKlientaVM;
             this.dodajPojazdVM = dodajPojazdVM;
             this.dataProvider = dataProvider;
             this.edytujZamowienieVM = edytujZamowienieVM;
+            this.csvExportService = csvExportService;
 
             inicjalizujFiltry();
         }
@@ -201,6 +211,15 @@ namespace projekt_bazy_danych.ViewModels
         private void usun()
         {
             _ = usunAsync();
+        }
+
+        /// <summary>
+        /// Wywołuje asynchroniczną komendę eksportu przefiltrowanych zamówień do formatu CSV.
+        /// </summary>
+        [RelayCommand]
+        private void eksportujCsv()
+        {
+            _ = eksportujCsvAsync();
         }
 
         /// <summary>
@@ -413,6 +432,53 @@ namespace projekt_bazy_danych.ViewModels
             catch (Exception ex)
             {
                 MessageBox.Show($"Błąd podczas usuwania zamówienia:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        /// <summary>
+        /// Otwiera okno dialogowe zapisu pliku i asynchronicznie eksportuje aktualnie wyfiltrowane zamówienia do formatu CSV.
+        /// </summary>
+        private async Task eksportujCsvAsync()
+        {
+            if (Pojazdy == null || Pojazdy.Count == 0)
+            {
+                MessageBox.Show(
+                    "Brak danych do wyeksportowania. Zmień kryteria filtrowania, aby wyświetlić zamówienia.",
+                    "Brak danych",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return;
+            }
+
+            var dialog = new Microsoft.Win32.SaveFileDialog
+            {
+                Title = "Eksportuj zamówienia do pliku CSV",
+                Filter = "Pliki CSV (*.csv)|*.csv|Wszystkie pliki (*.*)|*.*",
+                FileName = $"zamowienia_{DateTime.Now:yyyyMMdd_HHmmss}.csv",
+                DefaultExt = ".csv"
+            };
+
+            if (dialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            try
+            {
+                ResultWithMessage result = await csvExportService.EksportujZamowieniaDoCsv(dialog.FileName, Pojazdy);
+
+                if (!result.IsValid)
+                {
+                    MessageBox.Show(result.Message, "Błąd eksportu", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(result.Message, "Sukces", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Błąd podczas eksportowania do CSV:\n{ex.Message}", "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion

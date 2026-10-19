@@ -192,6 +192,9 @@
                 <Button Content="📊 Wykres"
                         Style="{StaticResource ButtonDefault}"
                         Command="{Binding PokazWykresCommand}"/>
+                <Button Content="Eksportuj do CSV"
+                        Style="{StaticResource ButtonDefault}"
+                        Command="{Binding eksportujCsvCommand}"/>
             </hc:UniformSpacingPanel>
 
             <DataGrid Grid.Row="2"
